@@ -4,17 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Numele Orașului — Pagina Principală</title>
-
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/pages/index.css">
-
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar">
     <div class="container navbar__inner">
         <a href="index.html" class="navbar__logo">
@@ -28,18 +25,15 @@
     </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
     <video autoplay muted loop class="hero__video">
         <source src="../assets/VIDEO.mp4" type="video/mp4">
     </video>
-
     <div class="hero__overlay"></div>
-
     <div class="container">
         <div class="hero__content">
             <span class="hero__label slide-left">Administrație publică locală</span>
-            <h1 class="hero__title slide-up">Bine ați venit în Galați</h1>
+            <h1 class="hero__title slide-up">BINE AȚI VENIT ÎN GALAȚI</h1>
             <p class="hero__subtitle slide-up">Transparență, eficiență și comunicare directă cu cetățenii.</p>
             <div class="hero__actions slide-up">
                 <button class="btn btn-primary btn-lg">Depune o sesizare</button>
@@ -49,7 +43,6 @@
     </div>
 </section>
 
-<!-- STATISTICI -->
 <section class="stats-section">
     <div class="container">
         <div class="grid-4 stagger">
@@ -73,35 +66,36 @@
     </div>
 </section>
 
-<!-- SERVICII -->
 <section class="services-section">
     <div class="container">
         <div class="section-header slide-up">
-            <span class="section-header__label">Ce oferim</span>
-            <h2 class="section-header__title">Servicii pentru cetățeni</h2>
+            <span class="section-header__label">Implicare Locală</span>
+            <h2 class="section-header__title">Administrație și Cetățeni</h2>
             <div class="section-header__divider"></div>
         </div>
         <div class="grid-3 stagger">
-            <div class="card slide-up">
-                <div class="card__icon">📋</div>
-                <h3 class="card__title">Sesizări Online</h3>
-                <p>Depuneți sesizări direct din platformă și urmăriți statusul în timp real.</p>
-            </div>
-            <div class="card slide-up">
-                <div class="card__icon">📰</div>
-                <h3 class="card__title">Anunțuri Oficiale</h3>
-                <p>Fiți la curent cu toate deciziile și hotărârile administrației locale.</p>
-            </div>
-            <div class="card slide-up">
-                <div class="card__icon">🗺️</div>
-                <h3 class="card__title">Proiecte Locale</h3>
-                <p>Urmăriți proiectele de infrastructură și dezvoltare ale orașului.</p>
-            </div>
+            <a href="sesizari.html" class="img-card slide-up">
+                <img src="../assets/poza1.jpg" alt="Sesizari" class="img-card__photo">
+                <div class="img-card__banner">
+                    <h3 class="img-card__title">Sesizări</h3>
+                </div>
+            </a>
+            <a href="renovari.html" class="img-card slide-up">
+                <img src="../assets/poza2.jpg" alt="Renovari" class="img-card__photo">
+                <div class="img-card__banner">
+                    <h3 class="img-card__title">Renovări</h3>
+                </div>
+            </a>
+            <a href="propuneri.html" class="img-card slide-up">
+                <img src="../assets/poza3.jpg" alt="Propuneri" class="img-card__photo">
+                <div class="img-card__banner">
+                    <h3 class="img-card__title">Propuneri</h3>
+                </div>
+            </a>
         </div>
     </div>
 </section>
 
-<!-- FOOTER -->
 <footer class="footer">
     <div class="container">
         <div class="footer__grid">
