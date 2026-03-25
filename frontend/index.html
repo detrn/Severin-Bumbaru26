@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Sesizări Galați</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Raportează o problemă</h1>
+
+<form id="reportForm">
+    <label>Titlu</label>
+    <input type="text" id="titlu" required>
+
+    <label>Descriere</label>
+    <textarea id="descriere" required></textarea>
+
+    <label>Categorie</label>
+    <select id="categorie">
+        <option>drumuri</option>
+        <option>iluminat</option>
+        <option>salubritate</option>
+    </select>
+
+    <button type="submit">Trimite</button>
+</form>
+
+<hr>
+
+<h2>Sesizări</h2>
+<div id="reports"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
