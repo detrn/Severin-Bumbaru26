@@ -150,5 +150,14 @@ form div.incorrect input{
     width: 24px;
     height: 24px;
     stroke-width: 2;
-    color: var(--label-icon); /* Iconițele rămân albe în label-ul albastru */
+    color: var(--label-icon);
+}
+.guest-btn {
+    background-color: transparent;
+    border: 2px solid var(--accent-color);
+    color: var(--accent-color);
+    margin-top: 5px;
+}
+.guest-btn:hover {
+    background-color: var(--input-color);
 }
