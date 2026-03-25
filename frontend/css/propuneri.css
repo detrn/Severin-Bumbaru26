@@ -1,0 +1,367 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --navy: #0b1f3a;
+    --blue: #1a56db;
+    --blue-light: #3b82f6;
+    --accent: #f0a500;
+    --surface: #ffffff;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --bg: #f0f4fb;
+    --radius: 20px;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--navy);
+    min-height: 100vh;
+}
+
+/* ── HERO ── */
+.hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--navy);
+    padding: 72px 24px 80px;
+    text-align: center;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+            radial-gradient(ellipse 60% 80% at 20% 50%, rgba(26,86,219,.35) 0%, transparent 70%),
+            radial-gradient(ellipse 50% 70% at 80% 30%, rgba(240,165,0,.12) 0%, transparent 60%);
+}
+
+.hero-inner {
+    position: relative;
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.hero-badge {
+    display: inline-block;
+    background: rgba(240,165,0,.15);
+    color: var(--accent);
+    border: 1px solid rgba(240,165,0,.35);
+    border-radius: 999px;
+    padding: 6px 18px;
+    font-size: .78rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+}
+
+.hero h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 18px;
+}
+
+.hero p {
+    color: rgba(255,255,255,.72);
+    font-size: 1.05rem;
+    line-height: 1.75;
+}
+
+.hero strong {
+    color: #fff;
+}
+
+/* ── PAGE ── */
+.page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+/* ── CARD ── */
+.card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 36px 40px;
+    box-shadow: 0 4px 24px rgba(11,31,58,.07);
+}
+
+/* ── TOGGLE ── */
+.toggle-label {
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+}
+
+.toggle-wrap {
+    display: inline-flex;
+    background: #f1f5f9;
+    border-radius: 999px;
+    padding: 5px;
+    gap: 4px;
+}
+
+.toggle-btn {
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-family: inherit;
+    font-size: .95rem;
+    font-weight: 600;
+    padding: 11px 28px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background .22s, color .22s, box-shadow .22s;
+    white-space: nowrap;
+}
+
+.toggle-btn.active {
+    background: var(--blue);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(26,86,219,.3);
+}
+
+.toggle-btn:not(.active):hover {
+    color: var(--navy);
+    background: rgba(11,31,58,.06);
+}
+
+/* ── SELECTED ROW ── */
+.selected-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 12px 18px;
+    border-radius: 12px;
+    background: #eff6ff;
+    border-left: 3px solid var(--blue);
+}
+
+.selected-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--blue);
+    flex-shrink: 0;
+}
+
+.selected-text {
+    font-size: .9rem;
+    font-weight: 600;
+    color: var(--blue);
+}
+
+/* ── FORM HEADER ── */
+.form-header {
+    margin-bottom: 28px;
+}
+
+.form-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.form-subtitle {
+    color: var(--muted);
+    font-size: .95rem;
+    line-height: 1.5;
+}
+
+/* ── FORM GRID ── */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.field.full {
+    grid-column: 1 / -1;
+}
+
+.field label {
+    font-size: .82rem;
+    font-weight: 600;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.field input,
+.field select,
+.field textarea {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 13px 16px;
+    font: inherit;
+    font-size: .97rem;
+    color: var(--navy);
+    background: #f8fafc;
+    transition: border-color .2s, box-shadow .2s, background .2s;
+    width: 100%;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+    color: #b0bec5;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+    outline: none;
+    border-color: var(--blue-light);
+    box-shadow: 0 0 0 4px rgba(59,130,246,.12);
+    background: #fff;
+}
+
+.field textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* ── DIVIDER ── */
+.divider {
+    height: 1px;
+    background: var(--border);
+    grid-column: 1 / -1;
+    margin: 4px 0;
+}
+
+/* ── TEMPLATE BOX ── */
+.template-box {
+    padding: 18px 22px;
+    border-radius: 14px;
+    border: 1.5px dashed #93c5fd;
+    background: #f0f7ff;
+    grid-column: 1 / -1;
+}
+
+.template-box h4 {
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 10px;
+}
+
+.template-box pre {
+    font: inherit;
+    font-size: .9rem;
+    color: var(--muted);
+    line-height: 1.75;
+    white-space: pre-line;
+}
+
+/* ── ACTIONS ── */
+.actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    grid-column: 1 / -1;
+    margin-top: 4px;
+}
+
+.btn-primary {
+    appearance: none;
+    border: none;
+    background: var(--blue);
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 14px 32px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background .2s, transform .15s, box-shadow .2s;
+    box-shadow: 0 4px 14px rgba(26,86,219,.25);
+}
+
+.btn-primary:hover {
+    background: #1244c4;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(26,86,219,.35);
+}
+
+.btn-secondary {
+    appearance: none;
+    border: 1.5px solid var(--border);
+    background: #f1f5f9;
+    color: var(--navy);
+    font: inherit;
+    font-weight: 600;
+    font-size: .95rem;
+    padding: 13px 24px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background .2s, border-color .2s;
+}
+
+.btn-secondary:hover {
+    background: #e2e8f0;
+    border-color: #cbd5e1;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 640px) {
+    .card {
+        padding: 24px 20px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .field.full,
+    .template-box,
+    .actions {
+        grid-column: 1;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+        text-align: center;
+    }
+
+    .toggle-wrap {
+        flex-direction: column;
+        border-radius: 16px;
+        width: 100%;
+    }
+}
+
+[hidden] {
+    display: none !important;
+}

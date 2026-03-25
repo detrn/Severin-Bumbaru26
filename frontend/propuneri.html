@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuneri — Galați</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/propuneri.css">
+</head>
+<body>
+
+<div class="hero">
+    <div class="hero-inner">
+        <span class="hero-badge">Pagina de propuneri</span>
+        <h1>Trimite o propunere</h1>
+        <p>Alege dacă propunerea ta este pentru <strong>oraș</strong> sau pentru <strong>site</strong>, apoi completează formularul.</p>
+    </div>
+</div>
+
+<div class="page">
+
+    <div class="card">
+        <div class="toggle-label">Tipul propunerii</div>
+        <div class="toggle-wrap">
+            <button class="toggle-btn active" data-tip="oras" type="button">🏙 Propunere pentru oraș</button>
+            <button class="toggle-btn" data-tip="site" type="button">🌐 Propunere pentru site</button>
+        </div>
+        <div class="selected-row">
+            <div class="selected-dot"></div>
+            <span class="selected-text" id="selected-text">Propunere pentru oraș</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="form-header">
+            <h2 id="form-title">Completează propunerea</h2>
+            <p class="form-subtitle" id="form-subtitle">Detaliile pentru propunerea ta legată de oraș.</p>
+        </div>
+
+        <form id="propuneri-form">
+            <div class="form-grid">
+
+                <div class="field" id="campuri-oras-categorie">
+                    <label for="categorie-oras">Categorie</label>
+                    <select id="categorie-oras" name="categorie_oras">
+                        <option>Infrastructură</option>
+                        <option>Curățenie</option>
+                        <option>Transport</option>
+                        <option>Spații verzi</option>
+                        <option>Siguranță</option>
+                        <option>Evenimente</option>
+                    </select>
+                </div>
+
+                <div class="field" id="campuri-oras-zona">
+                    <label for="zona-oras">Zona vizată</label>
+                    <input type="text" id="zona-oras" name="zona_oras" placeholder="Ex: Centru, Faleză, Micro 19">
+                </div>
+
+                <div class="field" id="campuri-site-sectiune" hidden>
+                    <label for="sectiune-site">Secțiunea site-ului</label>
+                    <select id="sectiune-site" name="sectiune_site">
+                        <option>Pagina principală</option>
+                        <option>Sesizări</option>
+                        <option>Propuneri</option>
+                        <option>Despre</option>
+                        <option>Autentificare</option>
+                        <option>Accesibilitate</option>
+                    </select>
+                </div>
+
+                <div class="field" id="campuri-site-tip" hidden>
+                    <label for="tip-site">Tip îmbunătățire</label>
+                    <select id="tip-site" name="tip_site">
+                        <option>Design</option>
+                        <option>Navigare</option>
+                        <option>Funcționalitate nouă</option>
+                        <option>Performanță</option>
+                        <option>Accesibilitate</option>
+                        <option>Claritate informații</option>
+                    </select>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="field full">
+                    <label for="titlu">Titlul propunerii</label>
+                    <input type="text" id="titlu" name="titlu" placeholder="Ex: Amenajare parc nou pentru cartier">
+                </div>
+
+                <div class="field full">
+                    <label for="problema">Problema observată</label>
+                    <textarea id="problema" name="problema" placeholder="Descrie pe scurt problema actuală."></textarea>
+                </div>
+
+                <div class="field full">
+                    <label for="solutie">Soluția propusă</label>
+                    <textarea id="solutie" name="solutie" placeholder="Descrie soluția pe care o propui."></textarea>
+                </div>
+
+                <div class="field full">
+                    <label for="impact">Impact / beneficii</label>
+                    <textarea id="impact" name="impact" placeholder="Ce beneficii aduce această propunere?"></textarea>
+                </div>
+
+                <div class="template-box">
+                    <h4>Template orientativ</h4>
+                    <pre id="template-text">Titlu propunere:
+Problema actuală:
+Zona vizată:
+Soluția propusă:
+Beneficii:
+Observații suplimentare:</pre>
+                </div>
+
+                <div class="actions">
+                    <button type="submit" class="btn-primary">Trimite propunerea</button>
+                    <button type="reset" class="btn-secondary">Resetează</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<script src="js/propuneri.js"></script>
+</body>
+</html>

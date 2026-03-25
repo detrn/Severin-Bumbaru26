@@ -17,7 +17,16 @@ async function connectDB() {
   }
 }
 
+let propuneriCollection;
+
+function getPropuneriCollection() {
+  if (!propuneriCollection) {
+    propuneriCollection = db.collection('propuneri');
+  }
+  return propuneriCollection;
+}
+
 function getReportsCollection() { return db.collection("sesizari"); }
 function getUsersCollection()   { return db.collection("users"); }
 
-module.exports = { connectDB, getReportsCollection, getUsersCollection };
+module.exports = { connectDB,getPropuneriCollection, getReportsCollection, getUsersCollection };

@@ -2,7 +2,7 @@
 const { createServer } = require('node:http');
 const fs   = require('fs');
 const path = require('path');
-const { connectDB, getReportsCollection, getUsersCollection } = require('./database.js');
+const { connectDB, getReportsCollection, getUsersCollection, getPropuneriCollection } = require('./database.js');
 const { ObjectId } = require('mongodb');
 const port = 3000;
 
@@ -11,6 +11,40 @@ let db;
 const server = createServer(async (req, res) => {
   let filePath = req.url.split('?')[0];
   filePath = filePath.startsWith('/') ? filePath.slice(1) : filePath;
+
+  // ===== API/PROPUNERI POST =====
+  if (filePath === 'api/propuneri' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', async () => {
+      try {
+        const date = JSON.parse(body);
+        const propunere = {
+          tip:           date.tip,
+          titlu:         date.titlu,
+          problema:      date.problema,
+          solutie:       date.solutie,
+          impact:        date.impact,
+          categorieOras: date.categorieOras || null,
+          zonaOras:      date.zonaOras      || null,
+          sectiuneSite:  date.sectiuneSite  || null,
+          tipSite:       date.tipSite       || null,
+          status:        'in asteptare',
+          dataCreare:    new Date()
+        };
+        const col = getPropuneriCollection();        // ← fără require, folosește importul de sus
+        const result = await col.insertOne(propunere);
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({ succes: true, id: result.insertedId }));
+      } catch (err) {
+        console.error('EROARE api/propuneri:', err); // ← vei vedea eroarea exactă în terminal
+        res.statusCode = 500;
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({ succes: false, mesaj: err.message }));
+      }
+    });
+    return;
+  }
 
   // ===== API/SIGNUP =====
   if (filePath === 'api/signup' && req.method === 'POST') {
