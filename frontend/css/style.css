@@ -1,138 +1,160 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-:root{
-    --accent-color:  #7B6FE8;   /* violet mai saturat, contrast mai bun pe dark */
-    --base-color:    #1A1A2E;   /* albastru-navy profund, inspirat din cerul nocturn */
-    --text-color:    #E8E6F0;   /* alb-lavender, lizibil pe fundal închis */
-    --input-color:   rgba(255, 255, 255, 0.08);
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --base-color:    #0A2540;   /* Navy profesional pentru elemente de contrast */
+    --form-bg:       #FFFFFF;   /* Fundal alb curat pentru zona de scris */
+    --accent-color:  #2563EB;   /* Albastru "instituțional" (Royal Blue) */
+    --text-color:    #1F2937;   /* Gri închis, aproape negru, pentru text citibil */
+    --input-color:   #F3F4F6;   /* Gri foarte deschis pentru câmpurile de text */
 }
+
 *{
     margin: 0;
     padding: 0;
 }
+
 html{
-    font-family: 'Poppins', "Segoe UI",sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 12pt;
-    color:var(--text-color);
+    color: var(--text-color);
     text-align: center;
 }
+
 .wrapper{
     box-sizing: border-box;
-    background-color: var(--base-color);
-    background-size:cover;
-    height:100vh;
-    width: max(20%,400px);
-    padding:10px;
-    border-radius:0 20px 20px 0;
+    background-color: var(--form-bg); /* Am schimbat în ALB pentru look oficial */
+    height: 100vh;
+    width: max(25%, 450px); /* Puțin mai lat pentru a nu înghesui textul */
+    padding: 40px;
+    border-radius: 0 30px 30px 0; /* Colțuri mai elegante */
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
+    box-shadow: 10px 0 50px rgba(0,0,0,0.2); /* Umbră care îl separă de video */
 }
+
 #myVideo{
     position: fixed;
     top: 0;
     right: 0;
-    width: 80%;
+    width: 75%; /* Lăsăm video-ul să ocupe restul ecranului */
     height: 100%;
     object-fit: cover;
     z-index: -1;
 }
+
 h1{
-    font-size: 3rem;
-    font-weight: 900;
+    font-size: 2.5rem; /* Puțin mai mic, mai rafinat */
+    font-weight: 800;
+    color: var(--base-color); /* Titlu închis la culoare pe fundal alb */
     text-transform: uppercase;
+    margin-bottom: 10px;
 }
 
 form{
-    width: min(400px,100%);
-    margin-top : 20px;
-    margin-bottom: 50px;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 15px; /* Spațiu mai mare între rânduri */
 }
+
 form > div{
     width: 100%;
     display: flex;
     justify-content: center;
-
 }
+
 form label{
     flex-shrink: 0;
     height: 50px;
     width: 50px;
-    background-color: var(--accent-color);
-    fill: var(--base-color);
-    color: var(--base-color);
-    border-radius: 10px 0 0 10px;
+    background-color: var(--base-color); /* Label închis la culoare */
+    color: #FFFFFF; /* Iconiță albă pe fundal închis */
+    border-radius: 8px 0 0 8px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.5rem;
-
 }
+
 form input{
     box-sizing: border-box;
-    flex-grow:1;
+    flex-grow: 1;
     min-width: 0;
     height: 50px;
     padding: 1em;
-    border-radius: 0 10px 10px 0;
-    border: 2px solid var(--accent-color);
+    border-radius: 0 8px 8px 0;
+    border: 1px solid #D1D5DB; /* Border subțire, gri, discret */
     border-left: none;
     background-color: var(--input-color);
+    font-weight: 500;
+    font-family: inherit;
+    color: #000000;
 }
+
 form input:hover{
     border-color: var(--accent-color);
 }
+
 form input:focus{
     outline: none;
-    border-color: var(--text-color);
+    border-color: var(--accent-color);
+    background-color: #FFFFFF; /* Se face alb când scrii în el */
 }
+
+/* Schimbă culoarea label-ului când input-ul e activ */
 div:has(input:focus) > label{
-    background-color: var(--text-color);
-}
-form input::placeholder{
-    color: var(--text-color);
-}
-form button{
-    margin-top: 10px;
-    border: none;
-    border-radius: 1000px;
-    padding: .85em 4em;
     background-color: var(--accent-color);
-    color: var(--base-color);
+}
+
+form input::placeholder{
+    color: #9CA3AF; /* Placeholder gri, aspect curat */
+}
+
+form button{
+    margin-top: 20px;
+    width: 100%; /* Buton pe toată lățimea pentru stabilitate vizuală */
+    border: none;
+    border-radius: 8px; /* Mai puțin rotund, mai business */
+    padding: 1em;
+    background-color: var(--accent-color);
+    color: #FFFFFF;
     font: inherit;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     text-transform: uppercase;
+    transition: background 0.3s;
 }
+
 form button:hover{
-    background-color: var(--text-color);
+    background-color: var(--base-color); /* Se închide la hover */
 }
-form button:focus{
-    outline: none;
-    background-color: var(--text-color);
-}
+
 a{
     text-decoration: none;
     color: var(--accent-color);
+    font-weight: 600;
 }
+
 a:hover{
     text-decoration: underline;
 }
+
 @media(max-width:1100px){
     .wrapper {
-        width: min(600px, 100%);
+        width: 100%;
+        border-radius: 0;
+        background-color: rgba(255, 255, 255, 0.9); /* Transparent pe mobil */
     }
 }
-form div.incorrect label{
-    background-color: #f06272;
-}
-form div.incorrect input{
-    border-color: #f06272;
-}
-#error-message{
-    color: #f06272;
+
+[data-lucide] {
+    width: 22px;
+    height: 22px;
+    stroke-width: 2.5;
+    stroke: #FFFFFF; /* Liniile iconiței să fie albe pe label-ul navy */
 }
