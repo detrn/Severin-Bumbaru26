@@ -5,7 +5,7 @@ const password_input = document.getElementById('password_input')
 const repeat_password_input = document.getElementById('repeat_password_input')  // ✅ underscore
 const error_msg = document.getElementById('error-message')                      // ✅ liniuță
 
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', async (e) => {
     let errors = []
 
     if (firstname_input) {
@@ -22,7 +22,26 @@ form.addEventListener('submit', (e) => {
     if (errors.length > 0) {
         e.preventDefault()
         error_msg.innerText = errors.join('. ')
+        return;
     }
+    try {
+        const response = await fetch('/api/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                firstName: firstname_input.value,
+                email: email_input.value,
+                password: password_input.value
+            })
+        })
+        const data = await response.json()
+        error_msg.innerText = data.message
+    } catch (error) {
+        error_msg.innerText = 'Something went wrong.'
+    }
+
 })
 
 function getSignupFormErrors(firstname, email, password, repeat_password) {
