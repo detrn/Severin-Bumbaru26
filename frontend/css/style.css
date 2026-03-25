@@ -6,7 +6,7 @@
     --text-color:    #1F2937;   /* Text gri închis spre negru */
     --input-color:   #F3F4F6;   /* Gri deschis pentru interiorul căsuțelor */
     --label-icon:    #FFFFFF;   /* Culoarea iconiței din label */
-    --dark-blue:     #0F172A;   /* Albastru foarte închis pentru textul din butoane/iconițe */
+    --dark-blue:      #0F172A;   /* Albastru foarte închis pentru textul din butoane/iconițe */
 }
 
 *{
