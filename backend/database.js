@@ -19,7 +19,6 @@ async function connectDB() {
   }
 }
 
-// Functie auxiliara pentru a lua colectia de sesizari rapid
 function getReportsCollection() {
   return db.collection("sesizari");
 }

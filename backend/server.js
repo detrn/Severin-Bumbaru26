@@ -1,39 +1,50 @@
-const express = require('express');
-const cors = require('cors');
+const { createServer } = require('node:http');
+const fs = require('fs');
+const path = require('path');
+const {connectDB,getReportsCollection} = require('./database.js');
+const port = 3000;
 
-const app = express();
-app.use(express.json());
-app.use(cors());
+let db;
+connectDB().then((database) => {
+  db=database;
+})
 
-let reports = [];
 
-// Creează sesizare
-app.post('/report', (req, res) => {
-  const report = {
-    id: Date.now(),
-    ...req.body,
-    status: 'in asteptare',
-  };
-  reports.push(report);
-  res.json(report);
-});
 
-// Listează sesizări
-app.get('/reports', (req, res) => {
-  res.json(reports);
-});
-
-// Update status
-app.put('/report/:id', (req, res) => {
-  const report = reports.find((r) => r.id == req.params.id);
-  if (report) {
-    report.status = req.body.status;
-    res.json(report);
-  } else {
-    res.status(404).send('Not found');
+const server = createServer((req, res) => {
+  let filePath=req.url;
+  if(filePath==='/index.html' || filePath==='/'){
+      filePath='index.html';
   }
-});
+  if(!path.extname(filePath)){
+    filePath=filePath+'.html'
+  }
 
-app.listen(3000, () => {
-  console.log('Server pornit pe http://localhost:3000');
+const fullPath=`../frontend/${filePath}`;
+fs.readFile(fullPath, (err, data) => {
+  if(err){
+    res.statusCode = 404;
+    console.error(err);
+    return;
+  }
+
+  if(fullPath.endsWith('.html')){
+    res.setHeader('Content-Type','text/html');
+  }
+  else if(fullPath.endsWith('.css')){
+    res.setHeader('Content-Type','text/css');
+  }
+  else if(fullPath.endsWith('.js')){
+    res.setHeader('Content-Type','application/javascript');
+  }
+  else if(fullPath.endsWith('.jpg')){
+    res.setHeader('Content-Type','image/jpg');
+  }
+  res.end(data);
+});
+});
+server.listen(port, (err) => {
+  if(err){
+    console.log(err);
+  }else console.log(`Listening on port ${port}`);
 });
