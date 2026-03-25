@@ -272,21 +272,30 @@ form div.incorrect input{
     transition: transform 0.5s ease;
 }
 
-
 .img-card:hover .img-card__photo {
     transform: scale(1.12);
 }
 
-
 .img-card__banner {
     position: absolute;
-    bottom: 0;
+    top: calc(100% - 75px);
     left: 0;
     width: 100%;
-    padding: 20px;
+    height: 100%;
     background: rgba(10, 37, 64, 0.7);
     backdrop-filter: blur(5px);
+    padding: 25px 20px;
     text-align: center;
+    transition: top 0.4s ease, background 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.img-card:hover .img-card__banner {
+    top: 0;
+    background: rgba(10, 37, 64, 0.85);
+    padding-top: 140px;
 }
 
 .img-card__title {
@@ -296,4 +305,22 @@ form div.incorrect input{
     text-transform: uppercase;
     letter-spacing: 1.5px;
     margin: 0;
+    line-height: 25px;
+}
+
+.img-card__desc {
+    color: #e2e8f0;
+    margin-top: 25px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.6;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.img-card:hover .img-card__desc {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.15s;
 }
