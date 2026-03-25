@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/pages/index.css">
+
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -28,20 +30,23 @@
 
 <!-- HERO -->
 <section class="hero">
-    <div class="hero__parallax"></div>
+    <video autoplay muted loop class="hero__video">
+        <source src="../assets/VIDEO.mp4" type="video/mp4">
+    </video>
+
+    <div class="hero__overlay"></div>
+
     <div class="container">
         <div class="hero__content">
             <span class="hero__label slide-left">Administrație publică locală</span>
-            <h1 class="hero__title slide-up">Bine ați venit în Orașul Nostru</h1>
-            <p class="hero__subtitle slide-up">Transparență, eficiență și comunicare directă cu cetățenii. Suntem aici pentru dumneavoastră.</p>
+            <h1 class="hero__title slide-up">Bine ați venit în Galați</h1>
+            <p class="hero__subtitle slide-up">Transparență, eficiență și comunicare directă cu cetățenii.</p>
             <div class="hero__actions slide-up">
-                <!-- butoanele le implementezi tu -->
                 <button class="btn btn-primary btn-lg">Depune o sesizare</button>
                 <button class="btn btn-ghost btn-lg">Află mai multe</button>
             </div>
         </div>
     </div>
-    <div class="hero__scroll-indicator">Scroll</div>
 </section>
 
 <!-- STATISTICI -->
