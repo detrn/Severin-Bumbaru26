@@ -3,6 +3,6 @@ function IntraCaOaspete(){
   localStorage.setItem("userRole", "Oaspete")
   localStorage.setItem("userName", "Vizitator")
 
-  window.location.href = "/"
+  window.location.href = "principal.html"
 }
 
