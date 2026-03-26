@@ -6,7 +6,7 @@
     <title>Sesizări — Galați</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
     <link rel="stylesheet" href="css/sesizari.css">
 </head>
 <body>
@@ -73,7 +73,9 @@
                         <span class="map-hint-icon">📍</span>
                         Apasă pe hartă pentru a marca locul problemei. Poți trage markerul pentru a ajusta poziția.
                     </div>
-                    <div id="map"></div>
+                    <div class="map-wrapper">
+                        <div id="map"></div>
+                    </div>
                     <div class="location-info" id="location-info" hidden>
                         <div class="location-dot"></div>
                         <span id="location-text">Locație neselectată</span>
@@ -108,7 +110,7 @@
 
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/WLEo=" crossorigin=""></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script src="js/sesizari.js"></script>
 </body>
 </html>

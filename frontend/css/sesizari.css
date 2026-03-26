@@ -293,13 +293,17 @@ body {
     margin-top: 1px;
 }
 
-#map {
-    width: 100%;
-    height: 400px;
+.map-wrapper {
     border-radius: 16px;
     border: 1.5px solid var(--border);
     overflow: hidden;
-    z-index: 0;
+    position: relative;
+}
+
+#map {
+    width: 100%;
+    height: 400px;
+    display: block;
 }
 
 /* ── LOCATION INFO ── */
