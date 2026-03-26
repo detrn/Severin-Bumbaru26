@@ -281,14 +281,32 @@
         return name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
     }
 
+    function isResolvedStatus(status) {
+        const value = String(status || '').trim().toLowerCase();
+        return value.includes('rezolv');
+    }
+
+    function sortWithResolvedLast(list, compareFn) {
+        list.sort((a, b) => {
+            const aResolved = isResolvedStatus(a.status);
+            const bResolved = isResolvedStatus(b.status);
+
+            if (aResolved !== bResolved) {
+                return aResolved ? 1 : -1;
+            }
+
+            return compareFn(a, b);
+        });
+    }
+
     function renderFeed() {
         let list = SESIZARI.filter(s => activeFilter === 'toate' || s.categorie === activeFilter);
 
         // Sortare
-        if (activeSort === 'data-desc')  list.sort((a,b)=>new Date(b.dataCreare||0)-new Date(a.dataCreare||0));
-        if (activeSort === 'data-asc')   list.sort((a,b)=>new Date(a.dataCreare||0)-new Date(b.dataCreare||0));
-        if (activeSort === 'prioritate') list.sort((a,b)=>(PRIO_ORDER[a.prioritate]||99)-(PRIO_ORDER[b.prioritate]||99));
-        if (activeSort === 'status')     list.sort((a,b)=>(STATUS_ORDER[a.status]||99)-(STATUS_ORDER[b.status]||99));
+        if (activeSort === 'data-desc')  sortWithResolvedLast(list, (a,b)=>new Date(b.dataCreare||0)-new Date(a.dataCreare||0));
+        if (activeSort === 'data-asc')   sortWithResolvedLast(list, (a,b)=>new Date(a.dataCreare||0)-new Date(b.dataCreare||0));
+        if (activeSort === 'prioritate') sortWithResolvedLast(list, (a,b)=>(PRIO_ORDER[a.prioritate]||99)-(PRIO_ORDER[b.prioritate]||99));
+        if (activeSort === 'status')     sortWithResolvedLast(list, (a,b)=>(STATUS_ORDER[a.status]||99)-(STATUS_ORDER[b.status]||99));
 
         const container = document.getElementById('feed-list');
         const empty     = document.getElementById('feed-empty');
