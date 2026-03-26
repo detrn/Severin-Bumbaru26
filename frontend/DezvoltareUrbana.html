@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dezvoltare Urbana - Municipiul Galati</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/componente/navbar.css">
+    <link rel="stylesheet" href="css/pages/dezvoltare-urbana.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container navbar__inner">
+        <a href="index.html" class="navbar__logo">Orașul <span>Tău</span></a>
+        <ul class="navbar__links">
+            <li><a href="index.html"><i data-lucide="home"></i> Acasă</a></li>
+            <li><a href="despre.html"><i data-lucide="info"></i> Despre</a></li>
+            <li><a href="propuneriForum.html"><i data-lucide="messages-square"></i> Forum</a></li>
+            <li class="dropdown">
+                <a href="#" id="sesizari-toggle">
+                    <i data-lucide="alert-circle"></i> Sesizări <i data-lucide="chevron-down" class="chevron-down" style="width:14px; transition: transform 0.3s;"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="sesizari.html"><i data-lucide="edit-3"></i> Depune sesizare</a></li>
+                    <li><a href="toate-sesizarile.html"><i data-lucide="list"></i> Toate sesizările</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<section class="urban-hero">
+    <div class="container urban-hero__inner">
+        <div class="urban-hero__content">
+            <span class="urban-hero__label"><i data-lucide="building-2" style="width:16px;height:16px;"></i> Dezvoltare urbana</span>
+            <h1 class="urban-hero__title">Proiecte care transforma orasul Galati</h1>
+            <p class="urban-hero__sub">Pagina urmareste dezvoltările urbane majore din municipiul Galați: modernizari de bulevarde, spatii publice, infrastructura pentru mobilitate si zone de regenerare urbana. Fiecare proiect include imagine, descriere clara si durata estimata.</p>
+            <div class="urban-hero__stats">
+                <div class="urban-stat">
+                    <strong>5</strong>
+                    <span>proiecte reale prezentate</span>
+                </div>
+                <div class="urban-stat">
+                    <strong>2024-2025</strong>
+                    <span>ani din sursele oficiale folosite</span>
+                </div>
+                <div class="urban-stat">
+                    <strong>Primaria</strong>
+                    <span>surse publice oficiale pentru informatii si imagini</span>
+                </div>
+            </div>
+        </div>
+        <aside class="urban-hero__panel">
+            <h2 class="urban-panel__heading">Ce contine aceasta pagina</h2>
+            <ul class="urban-panel__list">
+                <li class="urban-panel__item">
+                    <span class="urban-panel__icon"><i data-lucide="image" style="width:18px;height:18px;"></i></span>
+                    <span>Imagine reprezentativa pentru fiecare proiect urban aflat in derulare.</span>
+                </li>
+                <li class="urban-panel__item">
+                    <span class="urban-panel__icon"><i data-lucide="file-text" style="width:18px;height:18px;"></i></span>
+                    <span>Descriere scurta a lucrarilor si a impactului asupra orasului.</span>
+                </li>
+                <li class="urban-panel__item">
+                    <span class="urban-panel__icon"><i data-lucide="clock-3" style="width:18px;height:18px;"></i></span>
+                    <span>Durata proiectului, stadiul actual si institutia care coordoneaza executia.</span>
+                </li>
+            </ul>
+        </aside>
+    </div>
+</section>
+
+<section class="urban-projects">
+    <div class="container">
+        <div class="urban-section-head">
+            <div>
+                <h2>Dezvoltari urbane active</h2>
+                <p>Lista de mai jos foloseste proiecte reale anuntate public de Primaria municipiului Galati, cu fotografii din articolele oficiale si date concrete despre investitii.</p>
+            </div>
+        </div>
+
+        <div class="urban-grid">
+
+            <!-- PROIECT 1: Faleza Dunarii -->
+            <article class="urban-card">
+                <div class="urban-card__media">
+                    <img
+                            src="assets/poza4.jpg"
+                            alt="Imagine reprezentativa pentru modernizarea Falezei Dunarii din Galati"
+                            onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat_03.jpg/320px-Cat_03.jpg';"
+                            style="width:100%;height:100%;object-fit:cover;display:block;"
+                    >
+                    <span class="urban-card__badge"><i data-lucide="waves" style="width:14px;height:14px;"></i> Regenerare urbana</span>
+                </div>
+                <div class="urban-card__body">
+                    <div class="urban-card__meta">
+                        <span class="urban-pill"><i data-lucide="map-pin" style="width:14px;height:14px;"></i> Faleza Dunarii</span>
+                        <span class="urban-pill"><i data-lucide="calendar-range" style="width:14px;height:14px;"></i> Anunt oficial din 5 iunie 2025</span>
+                    </div>
+                    <h3 class="urban-card__title">Modernizarea Falezei Dunarii</h3>
+                    <p class="urban-card__desc">Primaria municipiului Galati a lansat in licitatie contractul pentru revitalizarea Falezei Dunarii, un proiect amplu de regenerare urbana si dezvoltare turistica. Investitia include amenajari peisagistice, piste pentru biciclete si alergare, circuit de vizitare, locuri de joaca, skate-park, puncte de belvedere, mobilier urban si interventii asupra scarilor si taluzului.</p>
+                    <div class="urban-card__details">
+                        <div class="urban-detail">
+                            <strong>Durata proiect</strong>
+                            <span>3 luni pentru proiectare si 24 de luni pentru executie.</span>
+                        </div>
+                        <div class="urban-detail">
+                            <strong>Valoare</strong>
+                            <span>165.624.092,75 lei fara TVA.</span>
+                        </div>
+                        <div class="urban-detail">
+                            <strong>Finantare</strong>
+                            <span>Programul Regional Sud-Est 2021-2027, in cadrul regenerarii urbane integrate.</span>
+                        </div>
+                    </div>
+                    <div class="urban-card__footer">
+                        <div class="urban-card__status urban-status--planning"><span class="urban-dot"></span> In licitatie</div>
+                        <div class="urban-card__owner">Sursa: Primaria municipiului Galati</div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROIECT 2: Parcul Rizer -->
+            <article class="urban-card">
+                <div class="urban-card__media">
+                    <img
+                            src="assets/poza5.jpg"
+                            alt="Imagine reprezentativa pentru modernizarea Parcului Rizer din Galati"
+                            onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat_03.jpg/320px-Cat_03.jpg';"
+                            style="width:100%;height:100%;object-fit:cover;display:block;"
+                    >
+                    <span class="urban-card__badge"><i data-lucide="trees" style="width:14px;height:14px;"></i> Parc urban</span>
+                </div>
+                <div class="urban-card__body">
+                    <div class="urban-card__meta">
+                        <span class="urban-pill"><i data-lucide="map-pin" style="width:14px;height:14px;"></i> Parcul Rizer</span>
+                        <span class="urban-pill"><i data-lucide="calendar-range" style="width:14px;height:14px;"></i> Proiect publicat in 2011</span>
+                    </div>
+                    <h3 class="urban-card__title">Modernizarea Parcului Rizer</h3>
+                    <p class="urban-card__desc">Proiectul de modernizare a Parcului Rizer a fost lansat de Primaria Galati in cadrul Planului Integrat de Dezvoltare Urbana, vizand reabilitarea unei suprafete de peste 30.000 mp. Investitia urma sa includa reamenajarea aleilor, spatiilor verzi si dotarilor urbane, pentru a transforma parcul intr-o zona de relaxare si utilizare culturala mai atractiva.</p>
+                    <div class="urban-card__details">
+                        <div class="urban-detail">
+                            <strong>Durata proiect</strong>
+                            <span>Durata exacta nu este precizata in articolul identificat.</span>
+                        </div>
+                        <div class="urban-detail">
+                            <strong>Valoare</strong>
+                            <span>10.441.084,04 lei valoare totala a proiectului.</span>
+                        </div>
+                        <div class="urban-detail">
+                            <strong>Suprafata</strong>
+                            <span>30.616,63 mp vizati pentru modernizare.</span>
+                        </div>
+                    </div>
+                    <div class="urban-card__footer">
+                        <div class="urban-card__status urban-status--planning"><span class="urban-dot"></span> Proiect istoric de modernizare</div>
+                        <div class="urban-card__owner">Sursa: Viața Liberă, pe baza datelor comunicate de Primaria Galati</div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROIECT 3: Autobuze electrice -->
+            <article class="urban-card">
+                <div class="urban-card__media">
+                    <img
+                            src="assets/poza7.jpg"
+                            alt="Imagine reprezentativa pentru transportul public electric din Galati"
+                            onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat_03.jpg/320px-Cat_03.jpg';"
+                            style="width:100%;height:100%;object-fit:cover;display:block;"
+                    >
+                    <span class="urban-card__badge"><i data-lucide="bus" style="width:14px;height:14px;"></i> Transport public</span>
+                </div>
+                <div class="urban-card__body">
+                    <div class="urban-card__meta">
+                        <span class="urban-pill"><i data-lucide="map-pin" style="width:14px;height:14px;"></i> Municipiul Galati</span>
+                        <span class="urban-pill"><i data-lucide="calendar-range" style="width:14px;height:14px;"></i> Contracte PNRR semnate din 29 decembrie 2022</span>
+                    </div>
+                    <h3 class="urban-card__title">42 de autobuze electrice pentru reteaua de transport urban</h3>
+                    <p class="urban-card__desc">Primaria municipiului Galati a anuntat sosirea a 42 de autobuze electrice Solaris, achizitionate prin PNRR. Proiectul include 20 de autobuze de 12 metri, 22 de autobuze de 10 metri si statiile de incarcare aferente, contribuind direct la modernizarea mobilitatii urbane si la reducerea emisiilor poluante in oras.</p>
+                    <div class="urban-card__details">
+                        <div class="urban-detail">
+                            <strong>Durata proiect</strong>
+                            <span>40 de luni pentru proiectul de 22 autobuze de 10 metri, de la semnarea finantarii.</span>
+                        </div>
+                        <div class="urban-detail">
+                            <strong>Impact</strong>
+                            <span>Flota electrica noua, accesibilitate sporita si transport urban mai curat.</span>
+                        </div>
+                        <div class="urban-detail">
+                            <strong>Investitie</strong>
+                            <span>Peste 27 milioane euro pentru cele 42 de autobuze si statiile aferente.</span>
+                        </div>
+                    </div>
+                    <div class="urban-card__footer">
+                        <div class="urban-card__status urban-status--active"><span class="urban-dot"></span> Livrate in oras</div>
+                        <div class="urban-card__owner">Sursa: Primaria municipiului Galati / PNRR</div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROIECT 4: Parc fotovoltaic -->
+            <article class="urban-card">
+                <div class="urban-card__media">
+                    <img
+                            src="assets/poza6.jpg"
+                            alt="Imagine reprezentativa pentru proiectul parcului fotovoltaic din Galati"
+                            onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat_03.jpg/320px-Cat_03.jpg';"
+                            style="width:100%;height:100%;object-fit:cover;display:block;"
+                    >
+                    <span class="urban-card__badge"><i data-lucide="sun-medium" style="width:14px;height:14px;"></i> Energie urbana</span>
+                </div>
+                <div class="urban-card__body">
+                    <div class="urban-card__meta">
+                        <span class="urban-pill"><i data-lucide="map-pin" style="width:14px;height:14px;"></i> Micro 17, blocurile M1-M14</span>
+                        <span class="urban-pill"><i data-lucide="calendar-range" style="width:14px;height:14px;"></i> Contract de finantare anuntat la 6 august 2024</span>
+                    </div>
+                    <h3 class="urban-card__title">Primul parc fotovoltaic amenajat de Primarie la Galati</h3>
+                    <p class="urban-card__desc">Proiectul prevede montarea a 2.100 de module fotovoltaice de 550Wp, 14 invertoare si instalatiile tehnice necesare pe acoperisurile blocurilor M1-M14 din Micro 17. Investitia sustine tranzitia energetica urbana si reducerea costurilor cu energia pentru sistemele publice.</p>
+                    <div class="urban-card__details">
+                        <div class="urban-detail">
+                            <strong>Durata proiect</strong>
+                            <span>Maxim 31 de luni, conform contractului de finantare.</span>
+                        </div>
+                        <div class="urban-detail">
+                            <strong>Beneficiu</strong>
+                            <span>Productie locala de energie regenerabila si reducerea emisiilor.</span>
+                        </div>
+                        <div class="urban-detail">
+                            <strong>Valoare</strong>
+                            <span>6.732.487,30 lei cu TVA.</span>
+                        </div>
+                    </div>
+                    <div class="urban-card__footer">
+                        <div class="urban-card__status urban-status--planning"><span class="urban-dot"></span> Finantare semnata</div>
+                        <div class="urban-card__owner">Sursa: Primaria municipiului Galati / Fondul pentru Modernizare</div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROIECT 5: Insule ecologice digitalizate -->
+            <article class="urban-card">
+                <div class="urban-card__media">
+                    <img
+                            src="assets/poza10.jpg"
+                            alt="Imagine reprezentativa pentru insulele ecologice digitalizate din Galati"
+                            onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat_03.jpg/320px-Cat_03.jpg';"
+                            style="width:100%;height:100%;object-fit:cover;display:block;"
+                    >
+                    <span class="urban-card__badge"><i data-lucide="recycle" style="width:14px;height:14px;"></i> Salubrizare inteligenta</span>
+                </div>
+                <div class="urban-card__body">
+                    <div class="urban-card__meta">
+                        <span class="urban-pill"><i data-lucide="map-pin" style="width:14px;height:14px;"></i> Toate zonele orasului</span>
+                        <span class="urban-pill"><i data-lucide="calendar-range" style="width:14px;height:14px;"></i> Contract de finantare anuntat la 18 iunie 2024</span>
+                    </div>
+                    <h3 class="urban-card__title">336 de insule ecologice digitalizate in municipiul Galati</h3>
+                    <p class="urban-card__desc">Municipalitatea a anuntat dezvoltarea unei retele de 336 de insule ecologice digitalizate pentru colectarea selectiva a deseurilor. Sistemul include insule subterane si supraterane, acces pe baza de cartela si componenta software pentru monitorizarea cantitatilor si a tipurilor de deseuri colectate.</p>
+                    <div class="urban-card__details">
+                        <div class="urban-detail">
+                            <strong>Durata proiect</strong>
+                            <span>In implementare; in articolul oficial nu este publicata o durata exacta.</span>
+                        </div>
+                        <div class="urban-detail">
+                            <strong>Componenta</strong>
+                            <span>61 de insule noi prin contractul anuntat, pe langa alte 275 deja finantate.</span>
+                        </div>
+                        <div class="urban-detail">
+                            <strong>Valoare</strong>
+                            <span>6,5 milioane lei fara TVA pentru pachetul de 61 insule.</span>
+                        </div>
+                    </div>
+                    <div class="urban-card__footer">
+                        <div class="urban-card__status urban-status--active"><span class="urban-dot"></span> In implementare</div>
+                        <div class="urban-card__owner">Sursa: Primaria municipiului Galati / PNRR</div>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer__grid">
+            <div>
+                <div class="footer__brand-name">Orașul Tău</div>
+                <p>Administrația Publică Locală<br>Str. Primăriei nr. 1</p>
+            </div>
+            <div>
+                <div class="footer__heading">Navigare</div>
+                <ul class="footer__links">
+                    <li><a href="index.html">Acasă</a></li>
+                    <li><a href="despre.html">Despre</a></li>
+                    <li><a href="DezvoltareUrbana.html">Dezvoltare urbană</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="footer__heading">Contact</div>
+                <ul class="footer__links">
+                    <li><i data-lucide="phone"></i> 0234 000 000</li>
+                    <li><i data-lucide="mail"></i> contact@oras.ro</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <span>© 2026 Orașul Tău. Toate drepturile rezervate.</span>
+            <span>Panou informativ pentru proiecte de dezvoltare urbană</span>
+        </div>
+    </div>
+</footer>
+
+<script src="js/animations.js" defer></script>
+<script src="js/main.js" defer></script>
+<script src="js/dezvoltare-urbana.js" defer></script>
+
+</body>
+</html>
