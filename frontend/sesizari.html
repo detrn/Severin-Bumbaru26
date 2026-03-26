@@ -73,6 +73,21 @@
                         <span class="map-hint-icon">📍</span>
                         Apasă pe hartă pentru a marca locul problemei. Poți trage markerul pentru a ajusta poziția.
                     </div>
+
+                    <div class="map-controls">
+                        <div class="map-filters" id="map-filters">
+                            <button class="filter-chip active" data-cat="toate" type="button">Toate</button>
+                            <button class="filter-chip" data-cat="Infrastructură deteriorată" type="button"><span class="chip-dot" style="background:#f97316"></span>Infrastructură</button>
+                            <button class="filter-chip" data-cat="Iluminat stradal"           type="button"><span class="chip-dot" style="background:#eab308"></span>Iluminat</button>
+                            <button class="filter-chip" data-cat="Gunoi / Salubritate"        type="button"><span class="chip-dot" style="background:#22c55e"></span>Gunoi</button>
+                            <button class="filter-chip" data-cat="Spații verzi"               type="button"><span class="chip-dot" style="background:#10b981"></span>Spații verzi</button>
+                            <button class="filter-chip" data-cat="Transport public"           type="button"><span class="chip-dot" style="background:#3b82f6"></span>Transport</button>
+                            <button class="filter-chip" data-cat="Siguranță rutieră"          type="button"><span class="chip-dot" style="background:#e53e3e"></span>Siguranță</button>
+                            <button class="filter-chip" data-cat="Altele"                     type="button"><span class="chip-dot" style="background:#94a3b8"></span>Altele</button>
+                        </div>
+                        <button class="btn-hide-all" id="btn-hide-all" type="button">Ascunde tot</button>
+                    </div>
+
                     <div class="map-wrapper">
                         <div id="map"></div>
                     </div>
