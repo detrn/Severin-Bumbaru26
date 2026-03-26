@@ -15,7 +15,7 @@ async function connectDB() {
     return db;
   } catch (e) {
     console.error("Eroare la conectarea DB in database.js:", e);
-    process.exit(1); // Inchide procesul daca nu se poate conecta
+    process.exit(1); 
   }
 }
 

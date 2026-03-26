@@ -7,7 +7,6 @@ const { ObjectId } = require('mongodb');
 const port = 3000;
 
 let db;
-
 const server = createServer(async (req, res) => {
   let filePath = req.url.split('?')[0];
   filePath = filePath.startsWith('/') ? filePath.slice(1) : filePath;
