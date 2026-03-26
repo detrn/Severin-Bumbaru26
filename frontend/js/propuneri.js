@@ -43,7 +43,12 @@ form.addEventListener('submit', async e => {
 
     const tipActiv = document.querySelector('.toggle-btn.active').dataset.tip;
 
+    const userStored =localStorage.getItem('user');
+    const userName=userStored?(JSON.parse(userStored).nume || 'Anonim'):
+        (localStorage.getItem('userName')!=='Vizitator'? localStorage.getItem('userName'):'Anonim');
+
     const payload = {
+        autor: userName,
         tip:      tipActiv,
         titlu:    document.getElementById('titlu').value.trim(),
         problema: document.getElementById('problema').value.trim(),
