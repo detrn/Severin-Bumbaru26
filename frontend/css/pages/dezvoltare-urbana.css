@@ -6,6 +6,9 @@ body {
 
 .urban-hero {
     padding: 96px 0 56px;
+    min-height: calc(100vh - 152px);
+    display: flex;
+    align-items: center;
     background:
             radial-gradient(circle at top right, rgba(14, 116, 144, 0.18), transparent 28%),
             radial-gradient(circle at top left, rgba(249, 115, 22, 0.14), transparent 26%);
@@ -16,6 +19,7 @@ body {
     grid-template-columns: 1.15fr 0.85fr;
     gap: 28px;
     align-items: stretch;
+    width: 100%;
 }
 
 .urban-hero__content {

@@ -32,7 +32,7 @@
 }
 
 .despre-aplicatie {
-    min-height: 100vh;
+    min-height: calc(100vh - 200px);
     display: flex;
     align-items: center;
     padding: 120px 0 80px;

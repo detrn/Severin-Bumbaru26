@@ -16,6 +16,7 @@
     --border:     #e2e8f0;
     --bg:         #f0f4fb;
     --radius:     20px;
+    --page-width: 1200px;
 }
 
 body {
@@ -31,11 +32,10 @@ body {
     background: var(--navy);
     padding: 72px 24px 80px;
     text-align: center;
-    margin-top: 60px !important;
-    min-height: 350px !important;
     display: flex;
     align-items: center;
     justify-content: center;
+    min-height: calc(100vh - 152px) !important;
 }
 
 .hero::after {
@@ -64,6 +64,7 @@ body {
     max-width: 640px;
     margin: 0 auto;
     z-index: 2;
+    width: 100%;
 }
 
 .hero-badge {
@@ -100,9 +101,11 @@ body {
 }
 
 .page {
-    max-width: 860px;
+    width: min(100%, var(--page-width));
+    max-width: var(--page-width);
     margin: 0 auto;
-    padding: 40px 20px 80px;
+    margin-top: 0 !important;
+    padding: 48px 24px 96px;
     display: flex;
     flex-direction: column;
     gap: 28px;

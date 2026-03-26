@@ -107,6 +107,9 @@ main, .feed-page, .forum-layout {
     left: 0 !important;
     box-sizing: border-box !important;
     padding: 160px 0 100px !important;
+    min-height: calc(100vh - 260px);
+    display: flex;
+    align-items: center;
     position: relative;
     overflow: hidden;
     text-align: center;
@@ -116,7 +119,8 @@ main, .feed-page, .forum-layout {
 }
 
 .feed-hero .container {
-    max-width: 1200px;
+    max-width: 760px;
+    width: 100%;
     margin: 0 auto;
     padding: 0 20px;
 }
@@ -161,7 +165,8 @@ main, .feed-page, .forum-layout {
     display: grid;
     grid-template-columns: 1fr 320px;
     gap: 32px;
-    padding: 40px 0 80px;
+    margin-top: 0 !important;
+    padding: 48px 0 96px;
     width: 100%;
     box-sizing: border-box;
 }

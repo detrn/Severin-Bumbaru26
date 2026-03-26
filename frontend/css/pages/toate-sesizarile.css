@@ -2,6 +2,9 @@
 .feed-hero {
     background: var(--color-primary);
     padding: 120px 0 60px;
+    min-height: calc(100vh - 180px);
+    display: flex;
+    align-items: center;
     position: relative;
     overflow: hidden;
 }
@@ -18,6 +21,8 @@
 .feed-hero .container {
     position: relative;
     z-index: 1;
+    width: 100%;
+    max-width: 760px;
 }
 
 .feed-hero__label {
@@ -47,7 +52,7 @@
 
 /* ── FEED PAGE ── */
 .feed-page {
-    padding: 40px 24px 80px;
+    padding: 48px 24px 96px;
 }
 
 /* ── TOOLBAR ── */
