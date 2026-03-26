@@ -22,5 +22,14 @@ async function connectDB() {
 function getReportsCollection() {
   return db.collection("sesizari");
 }
+let propuneriCollection;
+
+function getPropuneriCollection() {
+  if (!propuneriCollection) {
+    propuneriCollection = db.collection("propuneri");
+  }
+  return propuneriCollection;
+}
 
 module.exports = { connectDB, getReportsCollection };
+module.exports = { connectDB, getPropuneriCollection, getReportsCollection, getUsersCollection, };
