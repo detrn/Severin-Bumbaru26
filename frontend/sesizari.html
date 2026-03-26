@@ -4,13 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sesizări — Galați</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
-    <link rel="stylesheet" href="css/sesizari.css">
-    <link rel="stylesheet" href="css/ButonSpecial.css">
+
+    <link rel="stylesheet" href="css/pages/sesizari.css">
+    <link rel="stylesheet" href="css/componente/navbar.css">
+    <link rel="stylesheet" href="css/accesibilitate.css">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
+
+<nav class="navbar">
+    <div class="container navbar__inner">
+        <a href="index.html" class="navbar__logo">Orașul <span>Tău</span></a>
+        <ul class="navbar__links">
+            <li><a href="index.html"><i data-lucide="home"></i> Acasă</a></li>
+            <li><a href="despre.html"><i data-lucide="info"></i> Despre</a></li>
+
+            <li><a href="propuneriForum.html"><i data-lucide="messages-square"></i> Forum</a></li>
+
+            <li class="dropdown">
+                <a href="#" id="sesizari-toggle">
+                    <i data-lucide="alert-circle"></i> Sesizări <i data-lucide="chevron-down" class="chevron-down" style="width:14px; transition: transform 0.3s;"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="sesizari.html"><i data-lucide="edit-3"></i> Depune sesizare</a></li>
+                    <li><a href="toate-sesizarile.html"><i data-lucide="list"></i> Toate sesizările</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
 
 <div class="hero">
     <div class="hero-inner">
@@ -20,101 +48,7 @@
     </div>
 </div>
 
-<div id="a11y-widget" role="region" aria-label="Meniu accesibilitate">
-
-    <div id="a11y-panel" role="dialog" aria-label="Opțiuni accesibilitate">
-        <div class="a11y-heading">Accesibilitate</div>
-
-        <div class="a11y-option" id="opt-fontsize" role="group" aria-label="Mărire text">
-            <div class="a11y-option__left">
-                <div class="a11y-option__icon">🔤</div>
-                <div>
-                    <div class="a11y-option__label">Mărime text</div>
-                    <div class="a11y-option__sublabel">Ajustează dimensiunea</div>
-                </div>
-            </div>
-            <div class="a11y-size-ctrl">
-                <button onclick="changeFont(-1)" aria-label="Micșorează text">−</button>
-                <span class="a11y-size-val" id="font-val">100%</span>
-                <button onclick="changeFont(1)" aria-label="Mărește text">+</button>
-            </div>
-        </div>
-
-        <div class="a11y-divider"></div>
-
-        <button class="a11y-option" id="opt-contrast"
-                onclick="toggleA11y('contrast', this)"
-                aria-pressed="false" aria-label="Activează contrast ridicat">
-            <div class="a11y-option__left">
-                <div class="a11y-option__icon">🌗</div>
-                <div>
-                    <div class="a11y-option__label">Contrast ridicat</div>
-                    <div class="a11y-option__sublabel">Vizibilitate sporită</div>
-                </div>
-            </div>
-            <div class="a11y-switch" aria-hidden="true"></div>
-        </button>
-
-        <button class="a11y-option" id="opt-underline"
-                onclick="toggleA11y('underline', this)"
-                aria-pressed="false" aria-label="Subliniază linkurile">
-            <div class="a11y-option__left">
-                <div class="a11y-option__icon">🔗</div>
-                <div>
-                    <div class="a11y-option__label">Subliniere linkuri</div>
-                    <div class="a11y-option__sublabel">Mai ușor de identificat</div>
-                </div>
-            </div>
-            <div class="a11y-switch" aria-hidden="true"></div>
-        </button>
-
-        <button class="a11y-option" id="opt-dyslexia"
-                onclick="toggleA11y('dyslexia', this)"
-                aria-pressed="false" aria-label="Activează font pentru dislexie">
-            <div class="a11y-option__left">
-                <div class="a11y-option__icon">📖</div>
-                <div>
-                    <div class="a11y-option__label">Font dislexie</div>
-                    <div class="a11y-option__sublabel">Lectură facilitată</div>
-                </div>
-            </div>
-            <div class="a11y-switch" aria-hidden="true"></div>
-        </button>
-
-        <button class="a11y-option" id="opt-cursor"
-                onclick="toggleA11y('cursor', this)"
-                aria-pressed="false" aria-label="Activează cursor mare">
-            <div class="a11y-option__left">
-                <div class="a11y-option__icon">🖱️</div>
-                <div>
-                    <div class="a11y-option__label">Cursor mare</div>
-                    <div class="a11y-option__sublabel">Vizibilitate cursor</div>
-                </div>
-            </div>
-            <div class="a11y-switch" aria-hidden="true"></div>
-        </button>
-
-        <div class="a11y-divider"></div>
-        <button id="a11y-reset" onclick="resetA11y()">↺ Resetează setările</button>
-    </div>
-
-    <button id="a11y-toggle"
-            onclick="togglePanel()"
-            aria-expanded="false"
-            aria-controls="a11y-panel"
-            aria-label="Deschide meniul de accesibilitate"
-            title="Accesibilitate">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <circle cx="12" cy="4" r="2"/>
-            <path d="M12 22c-1.1 0-2-.9-2-2v-5H7l2.5-6.5C9.8 7.6 10.8 7 12 7s2.2.6 2.5 1.5L17 14h-3v5c0 1.1-.9 2-2 2z"/>
-            <path d="M6.5 11.5C5 12.8 4 14.8 4 17h2c0-1.5.6-2.8 1.5-3.8L6.5 11.5zM17.5 11.5l-1 1.7C17.4 14.2 18 15.5 18 17h2c0-2.2-1-4.2-2.5-5.5z"/>
-        </svg>
-    </button>
-</div>
-
-
 <div class="page">
-
     <div class="card">
         <div class="toggle-label">Tipul sesizării</div>
         <div class="toggle-wrap">
@@ -135,7 +69,6 @@
 
         <form id="sesizari-form">
             <div class="form-grid">
-
                 <div class="field">
                     <label for="categorie">Categorie</label>
                     <select id="categorie" name="categorie">
@@ -165,33 +98,17 @@
                     <label>Locație sesizare</label>
                     <div class="map-hint">
                         <span class="map-hint-icon">📍</span>
-                        Apasă pe hartă pentru a marca locul problemei. Poți trage markerul pentru a ajusta poziția.
-                    </div>
-
-                    <div class="map-controls">
-                        <div class="map-filters" id="map-filters">
-                            <button class="filter-chip active" data-cat="toate" type="button">Toate</button>
-                            <button class="filter-chip" data-cat="Infrastructură deteriorată" type="button"><span class="chip-dot" style="background:#f97316"></span>Infrastructură</button>
-                            <button class="filter-chip" data-cat="Iluminat stradal"           type="button"><span class="chip-dot" style="background:#eab308"></span>Iluminat</button>
-                            <button class="filter-chip" data-cat="Gunoi / Salubritate"        type="button"><span class="chip-dot" style="background:#22c55e"></span>Gunoi</button>
-                            <button class="filter-chip" data-cat="Spații verzi"               type="button"><span class="chip-dot" style="background:#10b981"></span>Spații verzi</button>
-                            <button class="filter-chip" data-cat="Transport public"           type="button"><span class="chip-dot" style="background:#3b82f6"></span>Transport</button>
-                            <button class="filter-chip" data-cat="Siguranță rutieră"          type="button"><span class="chip-dot" style="background:#e53e3e"></span>Siguranță</button>
-                            <button class="filter-chip" data-cat="Altele"                     type="button"><span class="chip-dot" style="background:#94a3b8"></span>Altele</button>
-                        </div>
-                        <button class="btn-hide-all" id="btn-hide-all" type="button">Ascunde tot</button>
+                        Apasă pe hartă pentru a marca locul problemei.
                     </div>
 
                     <div class="map-wrapper">
                         <div id="map"></div>
                     </div>
+
                     <div class="location-info" id="location-info" hidden>
                         <div class="location-dot"></div>
                         <span id="location-text">Locație neselectată</span>
-                        <button type="button" class="location-clear" id="location-clear" title="Șterge locația">✕</button>
-                    </div>
-                    <div class="location-placeholder" id="location-placeholder">
-                        <span>⬆ Nicio locație selectată încă</span>
+                        <button type="button" class="location-clear" id="location-clear">✕</button>
                     </div>
                 </div>
 
@@ -202,7 +119,7 @@
 
                 <div class="field full">
                     <label for="descriere">Descrierea problemei</label>
-                    <textarea id="descriere" name="descriere" placeholder="Descrie problema observată cât mai detaliat posibil."></textarea>
+                    <textarea id="descriere" name="descriere" placeholder="Descrie problema observată detaliat."></textarea>
                 </div>
 
                 <input type="hidden" id="lat" name="lat">
@@ -212,15 +129,22 @@
                     <button type="submit" class="btn-primary">Trimite sesizarea</button>
                     <button type="reset" class="btn-secondary" id="btn-reset">Resetează</button>
                 </div>
-
             </div>
         </form>
     </div>
-
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-<script src="js/sesizari.js"></script>
+<script>
+    lucide.createIcons();
+</script>
+
+<script src="js/functionalitatePagini/sesizari.js"></script>
+
+<script src="js/main.js"></script>
+
 <script src="js/ButonSpecial.js"></script>
+<script src="js/accesibilitate.js"></script>
+
 </body>
 </html>

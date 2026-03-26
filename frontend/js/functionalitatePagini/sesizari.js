@@ -6,7 +6,6 @@ const prioritySel  = document.getElementById('prioritate');
 
 function setTip(tip) {
     toggleBtns.forEach(b => b.classList.toggle('active', b.dataset.tip === tip));
-
     if (tip === 'urgenta') {
         selectedText.textContent  = 'Sesizare urgentă';
         formSubtitle.textContent  = 'Sesizările urgente sunt prioritizate și procesate primul.';
@@ -17,56 +16,43 @@ function setTip(tip) {
         prioritySel.selectedIndex = 2;
     }
 }
-
 toggleBtns.forEach(b => b.addEventListener('click', () => setTip(b.dataset.tip)));
 
-// ── MAP ─────────────────────────────────────────────────
+// ── MAP ──────────────────────────────────────────────────
 const GALATI        = [45.4353, 28.0507];
 const GALATI_BOUNDS = L.latLngBounds(
-    L.latLng(45.38, 27.93),   // sud-vest
-    L.latLng(45.50, 28.15)    // nord-est
+    L.latLng(45.38, 27.93),
+    L.latLng(45.50, 28.15)
 );
 
 const map = L.map('map', {
-    center:     GALATI,
-    zoom:       14,
-    minZoom:    12,
-    maxZoom:    19,
-    maxBounds:  GALATI_BOUNDS,
-    maxBoundsViscosity: 1.0,   // nu lasă harta să fie trasă în afara bounds
+    center: GALATI, zoom: 14, minZoom: 12, maxZoom: 19,
+    maxBounds: GALATI_BOUNDS, maxBoundsViscosity: 1.0,
 });
-
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     maxZoom: 19,
 }).addTo(map);
-
-// Forțează recalcularea dimensiunii după render
 setTimeout(() => map.invalidateSize(), 100);
 
+// ── MARKERUL UTILIZATORULUI (roșu, draggable) ────────────
 const markerIcon = L.divIcon({
     className: '',
     html: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="40" viewBox="0 0 32 40">
         <path d="M16 0C7.16 0 0 7.16 0 16c0 10.76 14.24 23.28 15.25 24.19a1 1 0 0 0 1.5 0C17.76 39.28 32 26.76 32 16 32 7.16 24.84 0 16 0z" fill="#e53e3e"/>
         <circle cx="16" cy="16" r="6" fill="#fff"/>
     </svg>`,
-    iconSize: [32, 40],
-    iconAnchor: [16, 40],
-    popupAnchor: [0, -42],
+    iconSize: [32, 40], iconAnchor: [16, 40], popupAnchor: [0, -42],
 });
 
-let marker     = null;
-let lastLatLng = null;   // ultima poziție validă (pentru snap-back la drag)
-
+let marker = null, lastLatLng = null;
 const locationInfo        = document.getElementById('location-info');
 const locationText        = document.getElementById('location-text');
 const locationPlaceholder = document.getElementById('location-placeholder');
 const latInput            = document.getElementById('lat');
 const lngInput            = document.getElementById('lng');
 
-// ── TOAST ────────────────────────────────────────────────
 let toastTimer = null;
-
 function showToast(msg) {
     let toast = document.getElementById('map-toast');
     if (!toast) {
@@ -111,28 +97,22 @@ function updateLocation(latlng) {
     const lng = latlng.lng.toFixed(5);
     latInput.value = lat;
     lngInput.value = lng;
-    locationText.textContent = `${lat}, ${lng}`;
+    locationText.textContent   = `${lat}, ${lng}`;
     locationInfo.hidden        = false;
     locationPlaceholder.hidden = true;
 }
 
 function clearMarker() {
-    if (marker) {
-        map.removeLayer(marker);
-        marker = null;
-    }
-    lastLatLng             = null;
-    latInput.value         = '';
-    lngInput.value         = '';
-    locationInfo.hidden    = true;
-    locationPlaceholder.hidden = false;
+    if (marker) { map.removeLayer(marker); marker = null; }
+    lastLatLng = null;
+    latInput.value = ''; lngInput.value = '';
+    locationInfo.hidden = true; locationPlaceholder.hidden = false;
 }
 
 map.on('click', e => setMarker(e.latlng));
-
 document.getElementById('location-clear').addEventListener('click', clearMarker);
 
-// ── SESIZĂRI EXISTENTE (mock — înlocuiește cu fetch('/api/sesizari') când ai backend) ──
+// ── SESIZĂRI EXISTENTE DIN DB (înlocuiește MOCK_SESIZARI) ─
 const CAT_COLORS = {
     'Infrastructură deteriorată': '#f97316',
     'Iluminat stradal':           '#eab308',
@@ -143,18 +123,8 @@ const CAT_COLORS = {
     'Altele':                     '#94a3b8',
 };
 
-const MOCK_SESIZARI = [
-    { lat: 45.4420, lng: 28.0480, cat: 'Infrastructură deteriorată', titlu: 'Groapă pe str. Brăilei' },
-    { lat: 45.4380, lng: 28.0550, cat: 'Iluminat stradal',           titlu: 'Stâlp defect lângă parc' },
-    { lat: 45.4310, lng: 28.0430, cat: 'Gunoi / Salubritate',        titlu: 'Gunoi necolectat 3 zile' },
-    { lat: 45.4460, lng: 28.0600, cat: 'Spații verzi',               titlu: 'Copac căzut pe trotuar' },
-    { lat: 45.4350, lng: 28.0650, cat: 'Transport public',           titlu: 'Stație fără adăpost ploaie' },
-    { lat: 45.4400, lng: 28.0390, cat: 'Siguranță rutieră',          titlu: 'Marcaj rutier șters' },
-    { lat: 45.4290, lng: 28.0520, cat: 'Altele',                     titlu: 'Graffiti pe clădire istorică' },
-    { lat: 45.4470, lng: 28.0510, cat: 'Infrastructură deteriorată', titlu: 'Bordură spartă Micro 17' },
-    { lat: 45.4330, lng: 28.0700, cat: 'Gunoi / Salubritate',        titlu: 'Container supraaglomerat' },
-    { lat: 45.4410, lng: 28.0300, cat: 'Iluminat stradal',           titlu: 'Stradă neiluminată noaptea' },
-];
+// ← SCHIMBARE CHEIE: let în loc de const, populat din fetch
+let existingMarkers = [];
 
 function makeExistingIcon(color) {
     return L.divIcon({
@@ -163,22 +133,53 @@ function makeExistingIcon(color) {
             <path d="M16 0C7.16 0 0 7.16 0 16c0 10.76 14.24 23.28 15.25 24.19a1 1 0 0 0 1.5 0C17.76 39.28 32 26.76 32 16 32 7.16 24.84 0 16 0z" fill="${color}"/>
             <circle cx="16" cy="16" r="6" fill="#fff"/>
         </svg>`,
-        iconSize: [24, 30],
-        iconAnchor: [12, 30],
-        popupAnchor: [0, -32],
+        iconSize: [24, 30], iconAnchor: [12, 30], popupAnchor: [0, -32],
     });
 }
 
-// Construiește markerii existenți
-const existingMarkers = MOCK_SESIZARI.map(s => {
-    const m = L.marker([s.lat, s.lng], {
-        icon: makeExistingIcon(CAT_COLORS[s.cat] || '#94a3b8'),
-    });
-    m.sesizareCategorie = s.cat;
-    m.bindPopup(`<strong>${s.titlu}</strong><br><span style="font-size:.85em;color:#64748b">${s.cat}</span>`);
-    m.addTo(map);
-    return m;
-});
+// Funcție care înțelege atât schema veche cât și cea nouă
+function normalizeSesizare(s) {
+    const autorVechi = [s.prenume, s.nume].filter(Boolean).join(' ');
+    return {
+        titlu:     s.titlu     || s.sesizare         || '(fără titlu)',
+        categorie: s.categorie || s.criteriuSesizare || 'Altele',
+        autor:     s.autor     || autorVechi          || 'Anonim',
+        lat:       s.lat       || null,
+        lng:       s.lng       || null,
+    };
+}
+
+async function loadExistingMarkers() {
+    try {
+        const res  = await fetch('/api/reports');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+
+        // Curăță markerii vechi
+        existingMarkers.forEach(m => map.removeLayer(m));
+        existingMarkers = [];
+
+        data.forEach(raw => {
+            const s = normalizeSesizare(raw);
+            if (!s.lat || !s.lng) return; // sări sesizările fără coordonate
+            const color = CAT_COLORS[s.categorie] || '#94a3b8';
+            const m = L.marker([s.lat, s.lng], { icon: makeExistingIcon(color) });
+            m.sesizareCategorie = s.categorie;
+            m.bindPopup(`<strong>${s.titlu}</strong><br>
+                <span style="font-size:.85em;color:#64748b">${s.categorie}</span><br>
+                <span style="font-size:.78em;color:#94a3b8">de ${s.autor}</span>`);
+            m.addTo(map);
+            existingMarkers.push(m);
+        });
+
+        console.log(`[Hartă] ${existingMarkers.length} pini încărcați din DB`);
+    } catch (err) {
+        console.warn('[Hartă] Eroare la încărcarea sesizărilor:', err.message);
+    }
+}
+
+// Încarcă pinii la pornirea paginii
+loadExistingMarkers();
 
 // ── FILTRE ───────────────────────────────────────────────
 const activeFilters = new Set(['toate']);
@@ -198,25 +199,18 @@ function applyFilters() {
 document.getElementById('map-filters').addEventListener('click', e => {
     const chip = e.target.closest('.filter-chip');
     if (!chip) return;
-
     const cat = chip.dataset.cat;
-
     if (cat === 'toate') {
-        // activează toate
         activeFilters.clear();
         activeFilters.add('toate');
-        document.querySelectorAll('.filter-chip').forEach(c => {
-            c.classList.toggle('active', c.dataset.cat === 'toate');
-        });
+        document.querySelectorAll('.filter-chip').forEach(c =>
+            c.classList.toggle('active', c.dataset.cat === 'toate'));
     } else {
-        // dezactivează "Toate" când alegi specific
         activeFilters.delete('toate');
         document.querySelector('.filter-chip[data-cat="toate"]').classList.remove('active');
-
         if (activeFilters.has(cat)) {
             activeFilters.delete(cat);
             chip.classList.remove('active');
-            // dacă nu mai e nimic selectat, revin la "Toate"
             if (activeFilters.size === 0) {
                 activeFilters.add('toate');
                 document.querySelector('.filter-chip[data-cat="toate"]').classList.add('active');
@@ -226,7 +220,6 @@ document.getElementById('map-filters').addEventListener('click', e => {
             chip.classList.add('active');
         }
     }
-
     allHidden = false;
     btnHideAll.textContent = 'Ascunde tot';
     btnHideAll.classList.remove('hidden-state');
@@ -234,7 +227,6 @@ document.getElementById('map-filters').addEventListener('click', e => {
 });
 
 const btnHideAll = document.getElementById('btn-hide-all');
-
 btnHideAll.addEventListener('click', () => {
     allHidden = !allHidden;
     btnHideAll.textContent = allHidden ? 'Arată tot' : 'Ascunde tot';
@@ -253,41 +245,45 @@ const form = document.getElementById('sesizari-form');
 
 form.addEventListener('submit', async e => {
     e.preventDefault();
-
     if (!latInput.value || !lngInput.value) {
         alert('Te rugăm să marchezi locația pe hartă.');
         return;
     }
 
+    const userStored = localStorage.getItem('user');
+    const autor = userStored ? (JSON.parse(userStored).nume || 'Anonim') : 'Anonim';
     const tipActiv = document.querySelector('.toggle-btn.active').dataset.tip;
 
     const payload = {
-        tip:       tipActiv,
-        categorie: document.getElementById('categorie').value,
+        autor,
+        tip:        tipActiv,
+        categorie:  document.getElementById('categorie').value,
         prioritate: document.getElementById('prioritate').value,
-        titlu:     document.getElementById('titlu').value.trim(),
-        descriere: document.getElementById('descriere').value.trim(),
-        lat:       parseFloat(latInput.value),
-        lng:       parseFloat(lngInput.value),
+        titlu:      document.getElementById('titlu').value.trim(),
+        descriere:  document.getElementById('descriere').value.trim(),
+        lat:        parseFloat(latInput.value),
+        lng:        parseFloat(lngInput.value),
     };
 
     try {
-        const res  = await fetch('/api/sesizari', {
-            method:  'POST',
+        const res  = await fetch('/api/reports', {
+            method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body:    JSON.stringify(payload),
+            body: JSON.stringify(payload),
         });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         if (data.succes) {
             alert('Sesizarea a fost trimisă cu succes!');
             form.reset();
             clearMarker();
             setTip('urgenta');
+            loadExistingMarkers(); // ← pinul nou apare imediat pe hartă
         } else {
-            alert('Eroare la trimitere. Încearcă din nou.');
+            alert('Eroare la trimitere: ' + (data.mesaj || 'Încearcă din nou.'));
         }
     } catch (err) {
         console.error(err);
-        alert('Eroare de rețea.');
+        alert('Eroare de rețea: ' + err.message);
     }
 });

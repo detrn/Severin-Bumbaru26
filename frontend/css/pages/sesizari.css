@@ -25,13 +25,17 @@ body {
     min-height: 100vh;
 }
 
-/* ── HERO ── */
 .hero {
     position: relative;
     overflow: hidden;
     background: var(--navy);
     padding: 72px 24px 80px;
     text-align: center;
+    margin-top: 60px !important;
+    min-height: 350px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .hero::after {
@@ -50,8 +54,8 @@ body {
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(ellipse 60% 80% at 20% 50%, rgba(26,86,219,.35) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 70% at 80% 30%, rgba(240,165,0,.12) 0%, transparent 60%);
+            radial-gradient(ellipse 60% 80% at 20% 50%, rgba(26,86,219,.35) 0%, transparent 70%),
+            radial-gradient(ellipse 50% 70% at 80% 30%, rgba(240,165,0,.12) 0%, transparent 60%);
     z-index: 1;
 }
 
@@ -95,7 +99,6 @@ body {
     color: #fff;
 }
 
-/* ── PAGE ── */
 .page {
     max-width: 860px;
     margin: 0 auto;
@@ -105,7 +108,6 @@ body {
     gap: 28px;
 }
 
-/* ── CARD ── */
 .card {
     background: var(--surface);
     border-radius: var(--radius);
@@ -113,7 +115,6 @@ body {
     box-shadow: 0 4px 24px rgba(11,31,58,.07);
 }
 
-/* ── TOGGLE ── */
 .toggle-label {
     font-size: .75rem;
     font-weight: 600;
@@ -157,7 +158,6 @@ body {
     background: rgba(11,31,58,.06);
 }
 
-/* ── SELECTED ROW ── */
 .selected-row {
     display: flex;
     align-items: center;
@@ -183,7 +183,6 @@ body {
     color: var(--blue);
 }
 
-/* ── FORM HEADER ── */
 .form-header {
     margin-bottom: 28px;
 }
@@ -201,7 +200,6 @@ body {
     line-height: 1.5;
 }
 
-/* ── FORM GRID ── */
 .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -261,7 +259,6 @@ body {
     resize: vertical;
 }
 
-/* ── DIVIDER ── */
 .divider {
     height: 1px;
     background: var(--border);
@@ -269,7 +266,6 @@ body {
     margin: 4px 0;
 }
 
-/* ── MAP CONTROLS ── */
 .map-controls {
     display: flex;
     align-items: center;
@@ -353,7 +349,6 @@ body {
     color: #fff;
 }
 
-/* ── MAP ── */
 .map-field {
     gap: 10px;
 }
@@ -390,7 +385,6 @@ body {
     display: block;
 }
 
-/* ── MAP TOAST ── */
 #map-toast {
     position: absolute;
     bottom: 14px;
@@ -414,7 +408,6 @@ body {
     transform: translateX(-50%) translateY(0);
 }
 
-/* ── LOCATION INFO ── */
 .location-info {
     display: flex;
     align-items: center;
@@ -469,7 +462,6 @@ body {
     padding: 4px 0;
 }
 
-/* ── ACTIONS ── */
 .actions {
     display: flex;
     gap: 12px;
@@ -518,7 +510,6 @@ body {
     border-color: #cbd5e1;
 }
 
-/* ── RESPONSIVE ── */
 @media (max-width: 640px) {
     .card {
         padding: 24px 20px;
@@ -556,4 +547,11 @@ body {
 
 [hidden] {
     display: none !important;
+}
+
+#a11y-widget {
+    position: fixed !important;
+    z-index: 999999 !important;
+    bottom: 25px !important;
+    left: 25px !important;
 }

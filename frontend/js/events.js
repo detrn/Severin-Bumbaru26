@@ -1,10 +1,10 @@
 // events.js
 function initEvents() {
     document.querySelector('#btn-sesizare')?.addEventListener('click', () => {
-        window.location.href = '/sesizari.html';
+        window.location.href = 'sesizari.html';
     });
     document.querySelector('#btn-afla-mai-multe')?.addEventListener('click', () => {
-        document.querySelector('.services-section').scrollIntoView({ behavior: 'smooth' });
+        window.location.href = 'toate-sesizarile.html';
     });
 }
 

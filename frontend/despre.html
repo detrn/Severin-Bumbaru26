@@ -7,8 +7,30 @@
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/pages/about.css">
+    <link rel="stylesheet" href="css/componente/navbar.css">
 </head>
 <body>
+<nav class="navbar">
+    <div class="container navbar__inner">
+        <a href="index.html" class="navbar__logo">Orașul <span>Tău</span></a>
+        <ul class="navbar__links">
+            <li><a href="index.html"><i data-lucide="home"></i> Acasă</a></li>
+            <li><a href="despre.html"><i data-lucide="info"></i> Despre</a></li>
+
+            <li><a href="propuneriForum.html"><i data-lucide="messages-square"></i> Forum</a></li>
+
+            <li class="dropdown">
+                <a href="#" id="sesizari-toggle">
+                    <i data-lucide="alert-circle"></i> Sesizări <i data-lucide="chevron-down" class="chevron-down" style="width:14px; transition: transform 0.3s;"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="sesizari.html"><i data-lucide="edit-3"></i> Depune sesizare</a></li>
+                    <li><a href="toate-sesizarile.html"><i data-lucide="list"></i> Toate sesizările</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
 <section class="despre-aplicatie">
     <div class="container container-despre">
         <div class="despre-content">
@@ -72,5 +94,8 @@
         </aside>
     </div>
 </section>
+
+<script src="js/accessibility.js"></script>
+
 </body>
 </html>

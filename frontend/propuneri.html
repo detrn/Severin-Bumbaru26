@@ -5,16 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Propuneri — Galați</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/propuneri.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/pages/propuneri.css">
+    <link rel="stylesheet" href="css/componente/navbar.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
+
+<nav class="navbar">
+    <div class="container navbar__inner">
+        <a href="index.html" class="navbar__logo">Orașul <span>Tău</span></a>
+        <ul class="navbar__links">
+            <li><a href="index.html"><i data-lucide="home"></i> Acasă</a></li>
+            <li><a href="despre.html"><i data-lucide="info"></i> Despre</a></li>
+
+            <li><a href="propuneriForum.html"><i data-lucide="messages-square"></i> Forum</a></li>
+
+            <li class="dropdown">
+                <a href="#" id="sesizari-toggle">
+                    <i data-lucide="alert-circle"></i> Sesizări <i data-lucide="chevron-down" class="chevron-down" style="width:14px; transition: transform 0.3s;"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="sesizari.html"><i data-lucide="edit-3"></i> Depune sesizare</a></li>
+                    <li><a href="toate-sesizarile.html"><i data-lucide="list"></i> Toate sesizările</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
 
 <div class="hero">
     <div class="hero-inner">
         <span class="hero-badge">Pagina de propuneri</span>
         <h1>Trimite o propunere</h1>
         <p>Alege dacă propunerea ta este pentru <strong>oraș</strong> sau pentru <strong>site</strong>, apoi completează formularul.</p>
+
+        <div class="hero__actions" style="margin-top: 30px;">
+            <a href="propuneriForum.html" class="btn-forum">
+                <i data-lucide="messages-square" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 8px;"></i>
+                Vezi propunerile comunității (Forum)
+            </a>
+        </div>
     </div>
 </div>
 
@@ -34,6 +65,9 @@
 
     <div class="card">
         <div class="form-header">
+            <div class="form-header-icon" style="margin-bottom: 15px; color: #2563eb;">
+                <i data-lucide="file-text" style="width: 32px; height: 32px;"></i>
+            </div>
             <h2 id="form-title">Completează propunerea</h2>
             <p class="form-subtitle" id="form-subtitle">Detaliile pentru propunerea ta legată de oraș.</p>
         </div>
@@ -105,7 +139,7 @@
                 </div>
 
                 <div class="template-box">
-                    <h4>Template orientativ</h4>
+                    <h4><i data-lucide="clipboard-list" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 8px;"></i>Template orientativ</h4>
                     <pre id="template-text">Titlu propunere:
 Problema actuală:
 Zona vizată:
@@ -115,8 +149,8 @@ Observații suplimentare:</pre>
                 </div>
 
                 <div class="actions">
-                    <button type="submit" class="btn-primary">Trimite propunerea</button>
-                    <button type="reset" class="btn-secondary">Resetează</button>
+                    <button type="submit" class="btn-primary"><i data-lucide="send" style="width: 18px; height: 18px; margin-right: 8px;"></i>Trimite propunerea</button>
+                    <button type="reset" class="btn-secondary"><i data-lucide="trash-2" style="width: 18px; height: 18px; margin-right: 8px;"></i>Resetează</button>
                 </div>
 
             </div>
@@ -125,6 +159,11 @@ Observații suplimentare:</pre>
 
 </div>
 
-<script src="js/propuneri.js"></script>
+<script>
+    lucide.createIcons();
+</script>
+<script src="js/functionalitatePagini/propuneri.js"></script>
+<script src="js/accessibility.js"></script>
+
 </body>
 </html>

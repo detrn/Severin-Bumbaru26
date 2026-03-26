@@ -3,118 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Numele Orașului — Pagina Principală</title>
+    <title>Orașul Tău — Pagina Principală</title>
+
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/pages/index.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/ButonSpecial.css">
+    <link rel="stylesheet" href="css/accesibilitate.css">
+    <link rel="stylesheet" href="css/componente/navbar.css">
 
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
-<div id="a11y-widget" role="region" aria-label="Meniu accesibilitate">
-
-    <div id="a11y-panel" role="dialog" aria-label="Opțiuni accesibilitate">
-        <div class="a11y-heading">Accesibilitate</div>
-
-        <div class="a11y-option" id="opt-fontsize" role="group" aria-label="Mărire text">
-            <div class="a11y-option__left">
-                <div class="a11y-option__icon">🔤</div>
-                <div>
-                    <div class="a11y-option__label">Mărime text</div>
-                    <div class="a11y-option__sublabel">Ajustează dimensiunea</div>
-                </div>
-            </div>
-            <div class="a11y-size-ctrl">
-                <button onclick="changeFont(-1)" aria-label="Micșorează text">−</button>
-                <span class="a11y-size-val" id="font-val">100%</span>
-                <button onclick="changeFont(1)" aria-label="Mărește text">+</button>
-            </div>
-        </div>
-
-        <div class="a11y-divider"></div>
-
-        <button class="a11y-option" id="opt-contrast"
-                onclick="toggleA11y('contrast', this)"
-                aria-pressed="false" aria-label="Activează contrast ridicat">
-            <div class="a11y-option__left">
-                <div class="a11y-option__icon">🌗</div>
-                <div>
-                    <div class="a11y-option__label">Contrast ridicat</div>
-                    <div class="a11y-option__sublabel">Vizibilitate sporită</div>
-                </div>
-            </div>
-            <div class="a11y-switch" aria-hidden="true"></div>
-        </button>
-
-        <button class="a11y-option" id="opt-underline"
-                onclick="toggleA11y('underline', this)"
-                aria-pressed="false" aria-label="Subliniază linkurile">
-            <div class="a11y-option__left">
-                <div class="a11y-option__icon">🔗</div>
-                <div>
-                    <div class="a11y-option__label">Subliniere linkuri</div>
-                    <div class="a11y-option__sublabel">Mai ușor de identificat</div>
-                </div>
-            </div>
-            <div class="a11y-switch" aria-hidden="true"></div>
-        </button>
-
-        <button class="a11y-option" id="opt-dyslexia"
-                onclick="toggleA11y('dyslexia', this)"
-                aria-pressed="false" aria-label="Activează font pentru dislexie">
-            <div class="a11y-option__left">
-                <div class="a11y-option__icon">📖</div>
-                <div>
-                    <div class="a11y-option__label">Font dislexie</div>
-                    <div class="a11y-option__sublabel">Lectură facilitată</div>
-                </div>
-            </div>
-            <div class="a11y-switch" aria-hidden="true"></div>
-        </button>
-
-        <button class="a11y-option" id="opt-cursor"
-                onclick="toggleA11y('cursor', this)"
-                aria-pressed="false" aria-label="Activează cursor mare">
-            <div class="a11y-option__left">
-                <div class="a11y-option__icon">🖱️</div>
-                <div>
-                    <div class="a11y-option__label">Cursor mare</div>
-                    <div class="a11y-option__sublabel">Vizibilitate cursor</div>
-                </div>
-            </div>
-            <div class="a11y-switch" aria-hidden="true"></div>
-        </button>
-
-        <div class="a11y-divider"></div>
-        <button id="a11y-reset" onclick="resetA11y()">↺ Resetează setările</button>
-    </div>
-
-    <button id="a11y-toggle"
-            onclick="togglePanel()"
-            aria-expanded="false"
-            aria-controls="a11y-panel"
-            aria-label="Deschide meniul de accesibilitate"
-            title="Accesibilitate">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <circle cx="12" cy="4" r="2"/>
-            <path d="M12 22c-1.1 0-2-.9-2-2v-5H7l2.5-6.5C9.8 7.6 10.8 7 12 7s2.2.6 2.5 1.5L17 14h-3v5c0 1.1-.9 2-2 2z"/>
-            <path d="M6.5 11.5C5 12.8 4 14.8 4 17h2c0-1.5.6-2.8 1.5-3.8L6.5 11.5zM17.5 11.5l-1 1.7C17.4 14.2 18 15.5 18 17h2c0-2.2-1-4.2-2.5-5.5z"/>
-        </svg>
-    </button>
-</div>
-
 <nav class="navbar">
     <div class="container navbar__inner">
-        <a href="index.html" class="navbar__logo">
-            Orașul <span>Tău</span>
-        </a>
+        <a href="index.html" class="navbar__logo">Orașul <span>Tău</span></a>
         <ul class="navbar__links">
-            <li><a href="index.html" class="active">Acasă</a></li>
-            <li><a href="despre.html">Despre</a></li>
-            <li><a href="sesizari.html">Sesizări</a></li>
+            <li><a href="index.html"><i data-lucide="home"></i> Acasă</a></li>
+            <li><a href="despre.html"><i data-lucide="info"></i> Despre</a></li>
+
+            <li><a href="propuneriForum.html"><i data-lucide="messages-square"></i> Forum</a></li>
+
+            <li class="dropdown">
+                <a href="#" id="sesizari-toggle">
+                    <i data-lucide="alert-circle"></i> Sesizări <i data-lucide="chevron-down" class="chevron-down" style="width:14px; transition: transform 0.3s;"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="sesizari.html"><i data-lucide="edit-3"></i> Depune sesizare</a></li>
+                    <li><a href="toate-sesizarile.html"><i data-lucide="list"></i> Toate sesizările</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
 </nav>
@@ -126,13 +47,12 @@
     <div class="hero__overlay"></div>
     <div class="container">
         <div class="hero__content">
-            <span class="hero__label slide-left">Administrație publică locală</span>
-            <h1 class="hero__title slide-up">BINE AȚI VENIT ÎN GALAȚI</h1>
-            <p class="hero__subtitle slide-up">Transparență, eficiență și comunicare directă cu cetățenii.</p>
-            <div class="hero__actions slide-up">
-                <button id="btn-sesizare" class="btn btn-primary btn-lg">Depune o sesizare</button>
-                <button id="btn-afla-mai-multe" class="btn btn-ghost btn-lg">Află mai multe</button>
-
+            <span class="hero__label reveal-from-bottom">Administrație publică locală</span>
+            <h1 class="hero__title reveal-from-bottom">BINE AȚI VENIT ÎN GALAȚI</h1>
+            <p class="hero__subtitle reveal-from-bottom">Transparență, eficiență și comunicare directă cu cetățenii.</p>
+            <div class="hero__actions reveal-from-bottom">
+                <button id="btn-sesizare" class="btn btn-primary btn-lg"><i data-lucide="edit-3"></i> Depune o sesizare</button>
+                <button id="btn-afla-mai-multe" class="btn btn-ghost btn-lg"><i data-lucide="chevron-right"></i> Află mai multe</button>
             </div>
         </div>
     </div>
@@ -141,19 +61,23 @@
 <section class="stats-section">
     <div class="container">
         <div class="grid-4 stagger">
-            <div class="stat-block slide-up">
+            <div class="stat-block reveal-from-bottom">
+                <i data-lucide="users" class="stat-icon"></i>
                 <div class="stat-block__number">311.000</div>
                 <div class="stat-block__label">Locuitori</div>
             </div>
-            <div class="stat-block slide-up">
+            <div class="stat-block reveal-from-bottom">
+                <i data-lucide="check-circle-2" class="stat-icon"></i>
                 <div class="stat-block__number">0</div>
                 <div class="stat-block__label">Sesizări rezolvate</div>
             </div>
-            <div class="stat-block slide-up">
+            <div class="stat-block reveal-from-bottom">
+                <i data-lucide="clock" class="stat-icon"></i>
                 <div class="stat-block__number">48h</div>
                 <div class="stat-block__label">Timp mediu răspuns</div>
             </div>
-            <div class="stat-block slide-up">
+            <div class="stat-block reveal-from-bottom">
+                <i data-lucide="briefcase" class="stat-icon"></i>
                 <div class="stat-block__number">1</div>
                 <div class="stat-block__label">Proiecte active</div>
             </div>
@@ -163,31 +87,48 @@
 
 <section class="services-section">
     <div class="container">
-        <div class="section-header slide-up">
+        <div class="section-header reveal-from-bottom">
             <span class="section-header__label">Implicare Locală</span>
             <h2 class="section-header__title">Administrație și Cetățeni</h2>
             <div class="section-header__divider"></div>
         </div>
-        <div class="grid-3 stagger">
-            <a href="sesizari.html" class="img-card slide-up">
+
+        <div class="pastille-controls-area reveal-from-bottom">
+            <div class="filter-pastille">
+                <button class="pastille-btn active" onclick="moveSlider(0)">Sesizări</button>
+                <button class="pastille-btn" onclick="moveSlider(1)">Renovări</button>
+                <button class="pastille-btn" onclick="moveSlider(2)">Propuneri</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="slider-viewport reveal-from-bottom">
+        <div class="slider-track" id="slider-track">
+            <a href="toate-sesizarile.html" class="img-card active-card">
                 <img src="../assets/poza1.jpg" alt="Sesizari" class="img-card__photo">
                 <div class="img-card__banner">
-                    <h3 class="img-card__title">Sesizări</h3>
-                    <p class="img-card__desc">Raportează rapid problemele din spațiul public și urmărește stadiul rezolvării lor în timp real.</p>
+                    <div class="img-card__content-wrap">
+                        <h3 class="img-card__title"><i data-lucide="megaphone"></i> Sesizări</h3>
+                        <p class="img-card__desc">Raportează rapid problemele din spațiul public și urmărește stadiul rezolvării lor în timp real.</p>
+                    </div>
                 </div>
             </a>
-            <a href="renovari.html" class="img-card slide-up">
+            <a href="renovari.html" class="img-card inactive-card">
                 <img src="../assets/poza2.jpg" alt="Renovari" class="img-card__photo">
                 <div class="img-card__banner">
-                    <h3 class="img-card__title">Renovări</h3>
-                    <p class="img-card__desc">Fii la curent cu stadiul lucrărilor de modernizare, infrastructură și reabilitare din orașul tău.</p>
+                    <div class="img-card__content-wrap">
+                        <h3 class="img-card__title"><i data-lucide="hammer"></i> Renovări</h3>
+                        <p class="img-card__desc">Fii la curent cu stadiul lucrărilor de modernizare, infrastructură și reabilitare din orașul tău.</p>
+                    </div>
                 </div>
             </a>
-            <a href="propuneri.html" class="img-card slide-up">
+            <a href="propuneri.html" class="img-card inactive-card">
                 <img src="../assets/poza3.jpg" alt="Propuneri" class="img-card__photo">
                 <div class="img-card__banner">
-                    <h3 class="img-card__title">Propuneri</h3>
-                    <p class="img-card__desc">Implică-te activ în deciziile comunității! Trimite sugestiile tale pentru dezvoltarea armonioasă a orașului și a site-ului.</p>
+                    <div class="img-card__content-wrap">
+                        <h3 class="img-card__title"><i data-lucide="lightbulb"></i> Propuneri</h3>
+                        <p class="img-card__desc">Implică-te activ în deciziile comunității! Trimite sugestiile tale pentru dezvoltarea armonioasă a orașului.</p>
+                    </div>
                 </div>
             </a>
         </div>
@@ -212,8 +153,8 @@
             <div>
                 <div class="footer__heading">Contact</div>
                 <ul class="footer__links">
-                    <li>📞 0234 000 000</li>
-                    <li>✉️ contact@oras.ro</li>
+                    <li><i data-lucide="phone"></i> 0234 000 000</li>
+                    <li><i data-lucide="mail"></i> contact@oras.ro</li>
                 </ul>
             </div>
         </div>
@@ -229,5 +170,16 @@
 <script src="js/events.js" defer></script>
 <script src="js/main.js" defer></script>
 <script src="js/ButonSpecial.js" defer></script>
+<script src="js/accesibilitate.js" defer></script>
+
+<script>
+    // Asigurăm inițializarea iconițelor după ce accesibilitatea injectează widget-ul
+    window.addEventListener('load', () => {
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    });
+</script>
+
 </body>
 </html>

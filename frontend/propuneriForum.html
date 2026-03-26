@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Forum Propuneri | GalațiCity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/componente/navbar.css">
+  <link rel="stylesheet" href="css/pages/forum.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container navbar__inner">
+    <a href="index.html" class="navbar__logo">Orașul <span>Tău</span></a>
+    <ul class="navbar__links">
+      <li><a href="index.html"><i data-lucide="home"></i> Acasă</a></li>
+      <li><a href="despre.html"><i data-lucide="info"></i> Despre</a></li>
+
+      <li><a href="propuneriForum.html"><i data-lucide="messages-square"></i> Forum</a></li>
+
+      <li class="dropdown">
+        <a href="#" id="sesizari-toggle">
+          <i data-lucide="alert-circle"></i> Sesizări <i data-lucide="chevron-down" class="chevron-down" style="width:14px; transition: transform 0.3s;"></i>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="sesizari.html"><i data-lucide="edit-3"></i> Depune sesizare</a></li>
+          <li><a href="toate-sesizarile.html"><i data-lucide="list"></i> Toate sesizările</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<header class="feed-hero">
+  <div class="container">
+    <span class="feed-hero__label"><i data-lucide="sparkles"></i> Vocea Comunității</span>
+    <h1 class="feed-hero__title">Forum Propuneri</h1>
+    <p class="feed-hero__sub">Votează și dezbate ideile care pot moderniza Galațiul. Cele mai apreciate propuneri sunt analizate prioritar de administrație.</p>
+  </div>
+</header>
+
+<div class="container">
+  <div class="forum-layout">
+
+    <main>
+      <div class="filter-section">
+        <button class="filter-chip active" data-type="all" onclick="filterByType('all')">
+          <i data-lucide="layers"></i> Toate
+        </button>
+        <button class="filter-chip" data-type="oras" onclick="filterByType('oras')">
+          <i data-lucide="building-2"></i> Oraș
+        </button>
+        <button class="filter-chip" data-type="site" onclick="filterByType('site')">
+          <i data-lucide="monitor"></i> Site
+        </button>
+      </div>
+
+      <div class="feed-toolbar">
+        <div class="search-wrapper">
+          <i data-lucide="search" class="search-icon-inside"></i>
+          <input type="text" id="searchInput" placeholder="Caută în propuneri..." oninput="renderForum()">
+        </div>
+
+        <select id="sortBy" onchange="renderForum()" class="feed-sort-select">
+          <option value="votes">↑ Cele mai votate</option>
+          <option value="newest">Recente</option>
+          <option value="oldest">Vechi</option>
+        </select>
+      </div>
+
+      <div id="feed-list">
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="sbox">
+        <div class="sbox-head"><i data-lucide="pie-chart"></i> Statistici</div>
+        <div class="mini-stats">
+          <div class="mstat">
+            <span class="mstat-label">Total Propuneri</span>
+            <strong id="stat-total">0</strong>
+          </div>
+          <div class="mstat">
+            <span class="mstat-label">Voturi totale</span>
+            <strong id="stat-votes">0</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="sbox">
+        <div class="sbox-head"><i data-lucide="trophy"></i> Top Contribuitori</div>
+        <div id="leaderboard" class="lb-list">
+        </div>
+      </div>
+
+      <a href="propuneri.html" class="btn-primary-forum">
+        <i data-lucide="plus-circle"></i> Adaugă propunere nouă
+      </a>
+    </aside>
+
+  </div>
+</div>
+<div id="toasts"></div>
+
+<script src="js/functionalitatePagini/forum.js"></script>
+
+<script>
+  lucide.createIcons();
+</script>
+</body>
+</html>

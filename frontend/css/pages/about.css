@@ -1,11 +1,44 @@
+@keyframes slideFromLeft {
+    0% {
+        transform: translateX(-250px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideFromTop {
+    0% {
+        transform: translateY(-150px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideFromBottom {
+    0% {
+        transform: translateY(150px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
 .despre-aplicatie {
     min-height: 100vh;
     display: flex;
     align-items: center;
     padding: 120px 0 80px;
     background:
-        radial-gradient(circle at top left, rgba(200, 169, 110, 0.18), transparent 32%),
-        linear-gradient(135deg, #0f1a2e 0%, #1a2744 58%, #233967 100%);
+            radial-gradient(circle at top left, rgba(200, 169, 110, 0.18), transparent 32%),
+            linear-gradient(135deg, #0f1a2e 0%, #1a2744 58%, #233967 100%);
     overflow: hidden;
 }
 
@@ -18,6 +51,7 @@
 
 .despre-content {
     color: var(--color-white);
+    animation: slideFromLeft 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 .despre-badge,
@@ -82,17 +116,29 @@
     gap: 20px;
 }
 
-.despre-panel__card,
+.despre-panel__card {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.18);
+    backdrop-filter: blur(14px);
+    padding: 28px;
+    opacity: 0;
+    animation: slideFromTop 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
+}
+
 .despre-stats {
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 28px;
     background: rgba(255, 255, 255, 0.08);
     box-shadow: 0 24px 80px rgba(0, 0, 0, 0.18);
     backdrop-filter: blur(14px);
-}
-
-.despre-panel__card {
-    padding: 28px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    overflow: hidden;
+    opacity: 0;
+    animation: slideFromBottom 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.4s forwards;
 }
 
 .despre-panel__card h2 {
@@ -125,13 +171,6 @@
     line-height: 1.6;
 }
 
-.despre-stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1px;
-    overflow: hidden;
-}
-
 .despre-stat {
     display: grid;
     gap: 6px;
@@ -157,24 +196,11 @@
     .container-despre {
         grid-template-columns: 1fr;
     }
-
-    .despre-content h1,
-    .despre-content p {
-        max-width: none;
-    }
 }
 
 @media (max-width: 640px) {
-    .despre-aplicatie {
-        padding: 96px 0 64px;
-    }
-
     .despre-actions {
         flex-direction: column;
-    }
-
-    .despre-actions .btn {
-        justify-content: center;
     }
 
     .despre-stats {
