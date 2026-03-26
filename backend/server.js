@@ -159,30 +159,32 @@ const server = createServer(async (req, res) => {
     return;
   }
 
-  // ===== API/PROPUNERI UPVOTE =====
-  if (
-    filePath.startsWith("api/propuneri/") &&
-    filePath.endsWith("/upvote") &&
-    req.method === "PUT"
-  ) {
-    try {
-      const id = filePath.split("/")[2];
-      const col = getPropuneriCollection();
-      await col.updateOne(
-        { _id: new ObjectId(id) },
-        { $inc: { numarVoturi: 1 } },
-      );
-      res.setHeader("Content-Type", "application/json");
-      res.end(JSON.stringify({ succes: true }));
-    } catch (err) {
-      res.statusCode = 500;
-      res.end(JSON.stringify({ succes: false, mesaj: err.message }));
-    }
+// ===== API/PROPUNERI VOTE =====
+  if (filePath.match(/^api\/propuneri\/[^/]+\/vote$/) && req.method === 'PUT') {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', async () => {
+      try {
+        const id          = filePath.split('/')[2];
+        const { delta }   = JSON.parse(body);  // -2, -1, +1, +2
+        const col         = getPropuneriCollection();
+        await col.updateOne(
+            { _id: new ObjectId(id) },
+            { $inc: { numarVoturi: delta } }
+        );
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({ succes: true }));
+      } catch (err) {
+        res.statusCode = 500;
+        res.end(JSON.stringify({ succes: false, mesaj: err.message }));
+      }
+    });
     return;
   }
 
+
   // ===== API/PROPUNERI DOWNVOTE =====
-  if (
+ /* if (
     filePath.startsWith("api/propuneri/") &&
     filePath.endsWith("/downvote") &&
     req.method === "PUT"
@@ -202,7 +204,7 @@ const server = createServer(async (req, res) => {
     }
     return;
   }
-
+*/
   ///
 
   // ===== API/REPORTS GET =====
