@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sesizări — Galați</title>
+    <title>Sesizari - Galati</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
-
     <link rel="stylesheet" href="css/pages/sesizari.css">
     <link rel="stylesheet" href="css/componente/navbar.css">
     <link rel="stylesheet" href="css/accesibilitate.css">
@@ -21,21 +20,21 @@
 <nav class="navbar">
     <div class="container navbar__inner">
         <a href="index.html" class="navbar__logo">
-            <img src="assets/logo.png" alt="Logo Galați" class="navbar__logo-img">
-            <div class="navbar__logo-text">Orașul <span>Tău</span></div>
+            <img src="assets/logo.png" alt="Logo Galati" class="navbar__logo-img">
+            <div class="navbar__logo-text">Orasul <span>Tau</span></div>
         </a>
         <ul class="navbar__links">
-            <li><a href="index.html"><i data-lucide="home"></i> Acasă</a></li>
+            <li><a href="index.html"><i data-lucide="home"></i> Acasa</a></li>
             <li><a href="despre.html"><i data-lucide="info"></i> Despre</a></li>
-            <li><a href="DezvoltareUrbana.html"><i data-lucide="building-2"></i> Dezvoltare Urbană</a></li>
+            <li><a href="DezvoltareUrbana.html"><i data-lucide="building-2"></i> Dezvoltare Urbana</a></li>
             <li><a href="propuneri.html"><i data-lucide="messages-square"></i> Propuneri</a></li>
             <li class="dropdown">
                 <a href="#" id="sesizari-toggle">
-                    <i data-lucide="alert-circle"></i> Sesizări <i data-lucide="chevron-down" class="chevron-down" style="width:14px; transition: transform 0.3s;"></i>
+                    <i data-lucide="alert-circle"></i> Sesizari <i data-lucide="chevron-down" class="chevron-down" style="width:14px; transition: transform 0.3s;"></i>
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="sesizari.html"><i data-lucide="edit-3"></i> Depune sesizare</a></li>
-                    <li><a href="toate-sesizarile.html"><i data-lucide="list"></i> Toate sesizările</a></li>
+                    <li><a href="toate-sesizarile.html"><i data-lucide="list"></i> Toate sesizarile</a></li>
                 </ul>
             </li>
         </ul>
@@ -44,29 +43,29 @@
 
 <div class="hero">
     <div class="hero-inner">
-        <span class="hero-badge">Pagina de sesizări</span>
+        <span class="hero-badge">Pagina de sesizari</span>
         <h1>Trimite o sesizare</h1>
-        <p>Alege tipul sesizării, <strong>marchează locația</strong> pe hartă și completează detaliile.</p>
+        <p>Alege tipul sesizarii, <strong>marcheaza locatia</strong> pe harta si completeaza detaliile.</p>
     </div>
 </div>
 
 <div class="page">
     <div class="card">
-        <div class="toggle-label">Tipul sesizării</div>
+        <div class="toggle-label">Tipul sesizarii</div>
         <div class="toggle-wrap">
-            <button class="toggle-btn active" data-tip="urgenta" type="button">🚨 Sesizare urgentă</button>
-            <button class="toggle-btn" data-tip="obisnuita" type="button">📝 Sesizare obișnuită</button>
+            <button class="toggle-btn active" data-tip="urgenta" type="button">Sesizare urgenta</button>
+            <button class="toggle-btn" data-tip="obisnuita" type="button">Sesizare obisnuita</button>
         </div>
         <div class="selected-row" id="selected-row">
             <div class="selected-dot"></div>
-            <span class="selected-text" id="selected-text">Sesizare urgentă</span>
+            <span class="selected-text" id="selected-text">Sesizare urgenta</span>
         </div>
     </div>
 
     <div class="card">
         <div class="form-header">
-            <h2 id="form-title">Completează sesizarea</h2>
-            <p class="form-subtitle" id="form-subtitle">Sesizările urgente sunt prioritizate și procesate primul.</p>
+            <h2 id="form-title">Completeaza sesizarea</h2>
+            <p class="form-subtitle" id="form-subtitle">Sesizarile urgente sunt prioritizate si procesate primele.</p>
         </div>
 
         <form id="sesizari-form">
@@ -74,12 +73,12 @@
                 <div class="field">
                     <label for="categorie">Categorie</label>
                     <select id="categorie" name="categorie">
-                        <option>Infrastructură deteriorată</option>
+                        <option>Infrastructura deteriorata</option>
                         <option>Iluminat stradal</option>
                         <option>Gunoi / Salubritate</option>
-                        <option>Spații verzi</option>
+                        <option>Spatii verzi</option>
                         <option>Transport public</option>
-                        <option>Siguranță rutieră</option>
+                        <option>Siguranta rutiera</option>
                         <option>Altele</option>
                     </select>
                 </div>
@@ -87,20 +86,58 @@
                 <div class="field">
                     <label for="prioritate">Prioritate</label>
                     <select id="prioritate" name="prioritate">
-                        <option id="opt-urgenta">Urgentă — necesită intervenție imediată</option>
-                        <option>Ridicată</option>
+                        <option>Urgenta - necesita interventie imediata</option>
+                        <option>Ridicata</option>
                         <option>Medie</option>
-                        <option>Scăzută</option>
+                        <option>Scazuta</option>
                     </select>
                 </div>
 
                 <div class="divider"></div>
 
                 <div class="field full map-field">
-                    <label>Locație sesizare</label>
+                    <label>Locatie sesizare</label>
                     <div class="map-hint">
                         <span class="map-hint-icon">📍</span>
-                        Apasă pe hartă pentru a marca locul problemei.
+                        Apasa pe harta pentru a marca locul problemei.
+                    </div>
+
+                    <div class="map-controls">
+                        <div class="map-filters" id="map-filters">
+                            <button type="button" class="filter-chip active" data-cat="toate">
+                                <span class="chip-dot" style="background:#0f172a;"></span>
+                                Toate
+                            </button>
+                            <button type="button" class="filter-chip" data-cat="Infrastructura deteriorata">
+                                <span class="chip-dot" style="background:#f97316;"></span>
+                                Infrastructura
+                            </button>
+                            <button type="button" class="filter-chip" data-cat="Iluminat stradal">
+                                <span class="chip-dot" style="background:#eab308;"></span>
+                                Iluminat
+                            </button>
+                            <button type="button" class="filter-chip" data-cat="Gunoi / Salubritate">
+                                <span class="chip-dot" style="background:#22c55e;"></span>
+                                Salubritate
+                            </button>
+                            <button type="button" class="filter-chip" data-cat="Spatii verzi">
+                                <span class="chip-dot" style="background:#10b981;"></span>
+                                Spatii verzi
+                            </button>
+                            <button type="button" class="filter-chip" data-cat="Transport public">
+                                <span class="chip-dot" style="background:#3b82f6;"></span>
+                                Transport
+                            </button>
+                            <button type="button" class="filter-chip" data-cat="Siguranta rutiera">
+                                <span class="chip-dot" style="background:#e53e3e;"></span>
+                                Siguranta
+                            </button>
+                            <button type="button" class="filter-chip" data-cat="Altele">
+                                <span class="chip-dot" style="background:#94a3b8;"></span>
+                                Altele
+                            </button>
+                        </div>
+                        <button type="button" class="btn-hide-all" id="btn-hide-all">Ascunde tot</button>
                     </div>
 
                     <div class="map-wrapper">
@@ -109,19 +146,22 @@
 
                     <div class="location-info" id="location-info" hidden>
                         <div class="location-dot"></div>
-                        <span id="location-text">Locație neselectată</span>
-                        <button type="button" class="location-clear" id="location-clear">✕</button>
+                        <span id="location-text">Locatie neselectata</span>
+                        <button type="button" class="location-clear" id="location-clear">X</button>
+                    </div>
+                    <div class="location-placeholder" id="location-placeholder">
+                        Nicio locatie selectata inca.
                     </div>
                 </div>
 
                 <div class="field full">
-                    <label for="titlu">Titlul sesizării</label>
-                    <input type="text" id="titlu" name="titlu" placeholder="Ex: Groapă adâncă pe strada Brăilei">
+                    <label for="titlu">Titlul sesizarii</label>
+                    <input type="text" id="titlu" name="titlu" placeholder="Ex: Groapa adanca pe strada Brailei">
                 </div>
 
                 <div class="field full">
                     <label for="descriere">Descrierea problemei</label>
-                    <textarea id="descriere" name="descriere" placeholder="Descrie problema observată detaliat."></textarea>
+                    <textarea id="descriere" name="descriere" placeholder="Descrie problema observata detaliat."></textarea>
                 </div>
 
                 <input type="hidden" id="lat" name="lat">
@@ -129,28 +169,29 @@
 
                 <div class="actions">
                     <button type="submit" class="btn-primary">Trimite sesizarea</button>
-                    <button type="reset" class="btn-secondary" id="btn-reset">Resetează</button>
+                    <button type="reset" class="btn-secondary" id="btn-reset">Reseteaza</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
+
 <footer class="footer">
     <div class="footer__grid">
         <div>
-            <div class="footer__brand-name">Orașul Tău</div>
-            <p>Administrația Publică Locală<br>Str. Primăriei nr. 1, Galați</p>
+            <div class="footer__brand-name">Orasul Tau</div>
+            <p>Administratia Publica Locala<br>Str. Primariei nr. 1, Galati</p>
         </div>
 
         <div>
             <div class="footer__heading">Navigare</div>
             <ul class="footer__links">
-                <li><a href="index.html">Acasă</a></li>
-                <li><a href="sesizari.html">Depune Sesizare</a></li>
-                <li><a href="toate-sesizarile.html">Toate Sesizările</a></li>
-                <li><a href="propuneri.html">Propuneri Cetățeni</a></li>
-                <li><a href="propuneriForum.html">Forum Comunitate</a></li>
-                <li><a href="DezvoltareUrbana.html">Dezvoltare Urbană</a></li>
+                <li><a href="index.html">Acasa</a></li>
+                <li><a href="sesizari.html">Depune sesizare</a></li>
+                <li><a href="toate-sesizarile.html">Toate sesizarile</a></li>
+                <li><a href="propuneri.html">Propuneri cetateni</a></li>
+                <li><a href="propuneriForum.html">Forum comunitate</a></li>
+                <li><a href="DezvoltareUrbana.html">Dezvoltare urbana</a></li>
             </ul>
         </div>
 
@@ -159,14 +200,14 @@
             <ul class="footer__links">
                 <li><i data-lucide="phone"></i> 0236 000 000</li>
                 <li><i data-lucide="mail"></i> contact@orasultau.ro</li>
-                <li><i data-lucide="map-pin"></i> Galați, România</li>
+                <li><i data-lucide="map-pin"></i> Galati, Romania</li>
             </ul>
         </div>
     </div>
 
     <div class="footer__bottom">
-        <span>© 2026 Orașul Tău. Toate drepturile rezervate.</span>
-        <span>Realizat cu ❤️ pentru cetățeni</span>
+        <span>&copy; 2026 Orasul Tau. Toate drepturile rezervate.</span>
+        <span>Realizat pentru cetateni</span>
     </div>
 </footer>
 
@@ -174,11 +215,10 @@
 <script>
     lucide.createIcons();
 </script>
-
 <script src="js/functionalitatePagini/sesizari.js"></script>
-
+<script src="js/animations.js"></script>
+<script src="js/events.js"></script>
 <script src="js/main.js"></script>
-
 <script src="js/ButonSpecial.js"></script>
 <script src="js/accesibilitate.js"></script>
 

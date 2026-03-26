@@ -148,6 +148,50 @@ const server = createServer(async (req, res) => {
     return;
   }
   ///
+  // ===== API/PROPUNERI POST =====
+  if (filePath === "api/propuneri" && req.method === "POST") {
+    let body = "";
+    req.on("data", (chunk) => (body += chunk));
+    req.on("end", async () => {
+      try {
+        const d = JSON.parse(body);
+        const propunere = {
+          autor: d.autor || "Anonim",
+          tip: d.tip || "oras",
+          titlu: d.titlu || "",
+          problema: d.problema || "",
+          solutie: d.solutie || "",
+          impact: d.impact || "",
+          categorieOras: d.categorieOras || null,
+          zonaOras: d.zonaOras || null,
+          sectiuneSite: d.sectiuneSite || null,
+          tipSite: d.tipSite || null,
+          status: "in asteptare",
+          numarVoturi: 0,
+          dataCreare: new Date(),
+        };
+
+        const collection = getPropuneriCollection();
+        const result = await collection.insertOne(propunere);
+
+        res.setHeader("Content-Type", "application/json");
+        res.end(
+          JSON.stringify({
+            succes: true,
+            id: result.insertedId,
+            mesaj: "Propunere inregistrata",
+          }),
+        );
+      } catch (err) {
+        console.error("EROARE api/propuneri POST:", err);
+        res.statusCode = 500;
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify({ succes: false, mesaj: err.message }));
+      }
+    });
+    return;
+  }
+
   // ===== API/PROPUNERI GET =====
   if (filePath === "api/propuneri" && req.method === "GET") {
     try {
