@@ -8,7 +8,8 @@ const campuriOrasZona = document.getElementById("campuri-oras-zona");
 const campuriSiteSectiune = document.getElementById("campuri-site-sectiune");
 const campuriSiteTip = document.getElementById("campuri-site-tip");
 const form = document.getElementById("propuneri-form");
-const API_BASE = window.location.protocol === "file:" ? "http://localhost:3000/api" : "/api";
+const API_BASE =
+  window.location.protocol === "file:" ? "http://localhost:3000/api" : "/api";
 
 function setTip(tip) {
   toggleBtns.forEach((button) => {
@@ -46,7 +47,8 @@ toggleBtns.forEach((button) => {
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  const tipActiv = document.querySelector(".toggle-btn.active")?.dataset.tip || "oras";
+  const tipActiv =
+    document.querySelector(".toggle-btn.active")?.dataset.tip || "oras";
   const userStored = localStorage.getItem("user");
   const parsedUser = userStored ? JSON.parse(userStored) : null;
   const localUserName = localStorage.getItem("userName");
@@ -54,19 +56,28 @@ form.addEventListener("submit", async (event) => {
   const payload = {
     autor:
       parsedUser?.nume ||
-      (localUserName && localUserName !== "Vizitator" ? localUserName : "Anonim"),
+      (localUserName && localUserName !== "Vizitator"
+        ? localUserName
+        : "Anonim"),
     tip: tipActiv,
     titlu: document.getElementById("titlu").value.trim(),
     problema: document.getElementById("problema").value.trim(),
     solutie: document.getElementById("solutie").value.trim(),
     impact: document.getElementById("impact").value.trim(),
     categorieOras:
-      tipActiv === "oras" ? document.getElementById("categorie-oras").value : null,
+      tipActiv === "oras"
+        ? document.getElementById("categorie-oras").value
+        : null,
     zonaOras:
-      tipActiv === "oras" ? document.getElementById("zona-oras").value.trim() : null,
+      tipActiv === "oras"
+        ? document.getElementById("zona-oras").value.trim()
+        : null,
     sectiuneSite:
-      tipActiv === "site" ? document.getElementById("sectiune-site").value : null,
-    tipSite: tipActiv === "site" ? document.getElementById("tip-site").value : null,
+      tipActiv === "site"
+        ? document.getElementById("sectiune-site").value
+        : null,
+    tipSite:
+      tipActiv === "site" ? document.getElementById("tip-site").value : null,
   };
 
   try {
