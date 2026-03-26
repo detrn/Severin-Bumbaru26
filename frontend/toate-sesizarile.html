@@ -6,12 +6,125 @@
     <title>Toate Sesizările — Galați</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/componente/navbar.css">
-    <link rel="stylesheet" href="css/pages/toate-sesizarile.css">
+    <link rel="stylesheet" href="css/toate-sesizarile.css">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      /* MAP */
+      #map-section {
+        width:100%; height:400px; border-radius:16px; overflow:hidden;
+        margin-bottom:32px; border:1px solid rgba(255,255,255,0.08);
+        box-shadow:0 4px 24px rgba(0,0,0,0.4);
+      }
+      #map-all { width:100%; height:100%; }
+
+      /* THREAD (raspunsuri admin) */
+      .thread {
+        margin-top: 12px;
+        border-top: 1px solid rgba(255,255,255,0.07);
+        padding-top: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .thread-msg {
+        background: rgba(59,130,246,0.08);
+        border-left: 3px solid #3b82f6;
+        border-radius: 0 8px 8px 0;
+        padding: 10px 14px;
+        font-size: .82rem;
+        color: #cbd5e1;
+        line-height: 1.55;
+      }
+      .thread-msg-meta {
+        font-size: .72rem;
+        color: #4b5a72;
+        margin-bottom: 4px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .thread-msg-meta .status-changed {
+        font-weight: 700;
+        color: #3b82f6;
+      }
+
+      /* ADMIN PANEL */
+      .admin-panel {
+        margin-top: 12px;
+        background: rgba(245,158,11,0.06);
+        border: 1px solid rgba(245,158,11,0.2);
+        border-radius: 10px;
+        padding: 12px 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .admin-panel-title {
+        font-size: .72rem;
+        font-weight: 700;
+        color: #f59e0b;
+        text-transform: uppercase;
+        letter-spacing: .06em;
+        margin-bottom: 2px;
+      }
+      .admin-textarea {
+        width: 100%;
+        background: rgba(0,0,0,0.25);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 6px;
+        padding: 8px 12px;
+        color: #e2e8f0;
+        font-size: .82rem;
+        font-family: inherit;
+        resize: vertical;
+        min-height: 64px;
+        outline: none;
+        transition: border-color .18s;
+      }
+      .admin-textarea:focus { border-color: #3b82f6; }
+      .admin-textarea::placeholder { color: #4b5a72; }
+      .admin-btns {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .admin-btn {
+        font-size: .75rem; padding: 5px 12px;
+        border-radius: 6px; border: 1px solid;
+        cursor: pointer; font-weight: 600;
+        transition: opacity .15s; background: transparent;
+      }
+      .admin-btn:hover { opacity: .75; }
+      .admin-btn:disabled { opacity: .4; cursor: not-allowed; }
+      .btn-inlucru  { color:#3b82f6; border-color:#3b82f6; background:rgba(59,130,246,0.1); }
+      .btn-rezolvat { color:#10b981; border-color:#10b981; background:rgba(16,185,129,0.1); }
+      .btn-respins  { color:#ef4444; border-color:#ef4444; background:rgba(239,68,68,0.1); }
+      .btn-asteptare{ color:#f59e0b; border-color:#f59e0b; background:rgba(245,158,11,0.1); }
+
+      /* FLAG BUTTONS (useri normali) */
+      .flag-bar {
+        margin-top: 10px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .flag-btn {
+        font-size: .72rem; padding: 3px 10px;
+        border-radius: 5px; border: 1px solid rgba(255,255,255,0.1);
+        background: transparent; color: #64748b;
+        cursor: pointer; display: flex; align-items: center; gap: 5px;
+        transition: all .15s;
+      }
+      .flag-btn:hover { border-color: #f97316; color: #f97316; }
+      .flag-btn.flagged { border-color: #f97316; color: #f97316; background: rgba(249,115,22,0.1); }
+      .flag-btn.flagged-nepotrivita { border-color: #ef4444; color: #ef4444; background: rgba(239,68,68,0.1); }
+      .flag-count { font-weight: 700; }
+    </style>
 </head>
 <body>
 
@@ -21,19 +134,15 @@
         <ul class="navbar__links">
             <li><a href="index.html"><i data-lucide="home"></i> Acasă</a></li>
             <li><a href="despre.html"><i data-lucide="info"></i> Despre</a></li>
-
-            <li><a href="propuneriForum.html"><i data-lucide="messages-square"></i> Forum</a></li>
-
-            <li class="dropdown">
-                <a href="#" id="sesizari-toggle">
-                    <i data-lucide="alert-circle"></i> Sesizări <i data-lucide="chevron-down" class="chevron-down" style="width:14px; transition: transform 0.3s;"></i>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="sesizari.html"><i data-lucide="edit-3"></i> Depune sesizare</a></li>
-                    <li><a href="toate-sesizarile.html"><i data-lucide="list"></i> Toate sesizările</a></li>
-                </ul>
-            </li>
+            <li><a href="sesizari.html" class="active"><i data-lucide="alert-circle"></i> Sesizări</a></li>
         </ul>
+        <div style="margin-left:auto;display:flex;align-items:center;gap:10px">
+          <div id="nav-user-badge" style="display:none;
+            background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.3);
+            border-radius:20px; padding:4px 14px; font-size:.78rem; color:#f59e0b;font-weight:600">
+            ⚙️ Admin
+          </div>
+        </div>
     </div>
 </nav>
 
@@ -43,12 +152,16 @@
         <h1 class="feed-hero__title">Sesizările cetățenilor</h1>
         <p class="feed-hero__sub">Toate problemele raportate de cetățenii din Galați, în timp real.</p>
         <a href="sesizari.html" class="btn btn-primary btn-lg feed-hero__cta">
-            <i data-lucide="plus-circle" style="margin-right: 8px;"></i> Depune o sesizare
+            <i data-lucide="plus-circle" style="margin-right:8px;"></i> Depune o sesizare
         </a>
     </div>
 </div>
 
 <div class="feed-page container">
+
+    <div id="map-section">
+        <div id="map-all"></div>
+    </div>
 
     <div class="feed-toolbar">
         <div class="feed-filters" id="feed-filters">
@@ -62,7 +175,9 @@
             <button class="feed-chip" data-filter="Altele"><span class="chip-dot" style="background:#94a3b8"></span>Altele</button>
         </div>
         <div class="feed-sort">
-            <label for="sort-select" class="feed-sort__label"><i data-lucide="filter" style="width:14px; height:14px; vertical-align:middle;"></i> Sortează:</label>
+            <label for="sort-select" class="feed-sort__label">
+                <i data-lucide="filter" style="width:14px;height:14px;vertical-align:middle;"></i> Sortează:
+            </label>
             <select id="sort-select" class="feed-sort__select">
                 <option value="data-desc">Cele mai recente</option>
                 <option value="data-asc">Cele mai vechi</option>
@@ -73,7 +188,7 @@
     </div>
 
     <div class="feed-stats">
-        <span id="feed-count">0 sesizări</span>
+        <span id="feed-count">Se încarcă...</span>
         <div class="feed-stats__badges">
             <span class="status-pill status-nou">Nou</span>
             <span class="status-pill status-lucru">În lucru</span>
@@ -81,14 +196,11 @@
         </div>
     </div>
 
-    <div class="feed-list" id="feed-list">
-    </div>
-
+    <div class="feed-list" id="feed-list"></div>
     <div class="feed-empty" id="feed-empty" hidden>
-        <div class="feed-empty__icon"><i data-lucide="search-x" style="width:48px; height:48px;"></i></div>
+        <div class="feed-empty__icon"><i data-lucide="search-x" style="width:48px;height:48px;"></i></div>
         <p>Nicio sesizare pentru această categorie.</p>
     </div>
-
 </div>
 
 <footer class="footer">
@@ -109,8 +221,8 @@
             <div>
                 <div class="footer__heading">Contact</div>
                 <ul class="footer__links">
-                    <li><i data-lucide="phone" style="width:16px; height:16px; vertical-align:middle;"></i> 0234 000 000</li>
-                    <li><i data-lucide="mail" style="width:16px; height:16px; vertical-align:middle;"></i> contact@oras.ro</li>
+                    <li><i data-lucide="phone" style="width:16px;height:16px;vertical-align:middle;"></i> 0234 000 000</li>
+                    <li><i data-lucide="mail" style="width:16px;height:16px;vertical-align:middle;"></i> contact@oras.ro</li>
                 </ul>
             </div>
         </div>
@@ -121,121 +233,305 @@
     </div>
 </footer>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script src="js/animations.js" defer></script>
 <script src="js/main.js" defer></script>
 <script>
-    const SESIZARI = [
-        { id: 1,  cat: 'Infrastructură deteriorată', titlu: 'Groapă adâncă pe strada Brăilei',          desc: 'Groapă de aproximativ 40cm adâncime lângă trecerea de pietoni. Risc major pentru șoferi și bicicliști.',      zona: 'Centru',   data: '2026-03-20', status: 'In lucru',  prioritate: 'Urgentă',  autor: 'Andrei M.' },
-        { id: 2,  cat: 'Iluminat stradal',           titlu: 'Stâlp de iluminat defect lângă parc',      desc: 'Stâlpul de la intrarea în Parcul Rizer nu funcționează de 2 săptămâni. Zona e complet întunecată noaptea.',  zona: 'Micro 14', data: '2026-03-18', status: 'Nou',      prioritate: 'Ridicată', autor: 'Maria P.' },
-        { id: 3,  cat: 'Gunoi / Salubritate',        titlu: 'Container supraaglomerat de 3 zile',       desc: 'Containerul de pe str. Tecuci nr. 4 nu a fost golit de 3 zile. Mirosul este insuportabil.',                   zona: 'Micro 19', data: '2026-03-17', status: 'Rezolvat', prioritate: 'Medie',    autor: 'Ion C.'   },
-        { id: 4,  cat: 'Spații verzi',               titlu: 'Copac căzut parțial pe trotuar',           desc: 'Un copac bătrân s-a rupt parțial și blochează trotuarul de pe Bulevardul George Coșbuc.',                    zona: 'Faleză',   data: '2026-03-15', status: 'In lucru',  prioritate: 'Urgentă',  autor: 'Elena D.' },
-        { id: 5,  cat: 'Transport public',           titlu: 'Stație de autobuz fără adăpost',           desc: 'Stația liniei 10 de pe str. Domnească nu are acoperiș. Pasagerii stau în ploaie.',                            zona: 'Centru',   data: '2026-03-14', status: 'Nou',      prioritate: 'Medie',    autor: 'Vasile T.'},
-        { id: 6,  cat: 'Siguranță rutieră',          titlu: 'Marcaj rutier complet șters',              desc: 'Trecerea de pietoni de la intersecția str. Brăilei cu str. Română este invizibilă.',                          zona: 'Centru',   data: '2026-03-12', status: 'Nou',      prioritate: 'Ridicată', autor: 'Ana G.'   },
-        { id: 7,  cat: 'Altele',                     titlu: 'Graffiti pe clădire de patrimoniu',        desc: 'Clădirea de pe str. Domnească 76 a fost vandalizată. Acoperă o fațadă istorică.',                             zona: 'Centru',   data: '2026-03-10', status: 'Nou',      prioritate: 'Scăzută',  autor: 'Mihai B.' },
-        { id: 8,  cat: 'Infrastructură deteriorată', titlu: 'Bordură spartă — risc pentru pietoni',     desc: 'Mai multe bucăți de bordură lipsesc pe trotuar. Persoanele în vârstă au dificultăți.',                        zona: 'Micro 17', data: '2026-03-09', status: 'In lucru',  prioritate: 'Medie',    autor: 'Doina R.' },
-        { id: 9,  cat: 'Gunoi / Salubritate',        titlu: 'Deșeuri aruncate ilegal în parc',          desc: 'Cineva a aruncat saci cu moloz în Parcul Rizer. Zona este folosită de copii.',                                zona: 'Micro 14', data: '2026-03-07', status: 'Rezolvat', prioritate: 'Medie',    autor: 'Radu N.'  },
-        { id: 10, cat: 'Iluminat stradal',           titlu: 'Stradă laterală neiluminată complet',      desc: 'Strada Independenței (tronsonul 12-30) nu are niciun stâlp funcțional de 3 săptămâni.',                       zona: 'Micro 40', data: '2026-03-05', status: 'Nou',      prioritate: 'Ridicată', autor: 'Alina S.' },
-        { id: 11, cat: 'Transport public',           titlu: 'Autobuzul liniei 5 nu respectă orarul',   desc: 'În ultimele 2 săptămâni autobuzul liniei 5 are întârzieri de 20-30 minute pe traseu.',                        zona: 'Micro 40', data: '2026-03-03', status: 'Nou',      prioritate: 'Medie',    autor: 'Bogdan F.'},
-        { id: 12, cat: 'Spații verzi',               titlu: 'Bănci distruse în parcul din cartier',     desc: 'Trei bănci din Parcul Micro 19 au șezuturile rupte. Nu mai pot fi folosite.',                                 zona: 'Micro 19', data: '2026-02-28', status: 'Rezolvat', prioritate: 'Scăzută',  autor: 'Ioana L.' },
-    ];
+// ── HELPERS ──────────────────────────────────────────────
+const CAT_COLORS = {
+    'Infrastructură deteriorată': '#f97316',
+    'Iluminat stradal':           '#eab308',
+    'Gunoi / Salubritate':        '#22c55e',
+    'Spații verzi':               '#10b981',
+    'Transport public':           '#3b82f6',
+    'Siguranță rutieră':          '#e53e3e',
+    'Altele':                     '#94a3b8',
+};
+const PRIO_ORDER   = { 'Urgentă':0,'Ridicată':1,'Medie':2,'Scăzută':3 };
+const STATUS_ORDER = { 'in lucru':0,'in asteptare':1,'rezolvata':2,'respinsa':3 };
 
-    const CAT_COLORS = {
-        'Infrastructură deteriorată': '#f97316',
-        'Iluminat stradal':           '#eab308',
-        'Gunoi / Salubritate':        '#22c55e',
-        'Spații verzi':               '#10b981',
-        'Transport public':           '#3b82f6',
-        'Siguranță rutieră':          '#e53e3e',
-        'Altele':                     '#94a3b8',
+let SESIZARI     = [];
+let activeFilter = 'toate';
+let activeSort   = 'data-desc';
+let mapMarkers   = [];
+
+// Utilizatorul curent
+let currentUser = null;
+try { currentUser = JSON.parse(localStorage.getItem('user')); } catch(e){}
+const isAdmin = currentUser?.rol === 'admin';
+
+// Flags salvate local (pentru a ști ce a votat userul curent)
+let myFlags = JSON.parse(localStorage.getItem('myFlags') || '{}');
+
+// Arată badge admin în navbar
+if (isAdmin) {
+    document.getElementById('nav-user-badge').style.display = 'block';
+}
+
+// ── NORMALIZARE SCHEMA ────────────────────────────────────
+function normalize(s) {
+    const autorVechi = [s.prenume, s.nume].filter(Boolean).join(' ');
+    const nivelToText = n => n >= 3 ? 'Urgentă' : n === 2 ? 'Medie' : 'Scăzută';
+    return {
+        _id:        s._id?.$oid || s._id,
+        titlu:      s.titlu      || s.sesizare         || '(fără titlu)',
+        descriere:  s.descriere  || s.sesizare         || '—',
+        categorie:  s.categorie  || s.criteriuSesizare || 'Altele',
+        autor:      s.autor      || autorVechi         || 'Anonim',
+        prioritate: s.prioritate || nivelToText(s.nivelUrgenta || 1),
+        status:     s.status     || 'in asteptare',
+        lat:        s.lat        || null,
+        lng:        s.lng        || null,
+        dataCreare: s.dataCreare || s.data             || null,
+        numarVoturi: s.numarVoturi || 0,
+        raspunsuri:  s.raspunsuri  || [],
+        flags:       s.flags       || { redundanta: 0, nepotrivita: 0 },
     };
+}
 
-    const PRIO_ORDER = { 'Urgentă': 0, 'Ridicată': 1, 'Medie': 2, 'Scăzută': 3 };
-    const STATUS_ORDER = { 'In lucru': 0, 'Nou': 1, 'Rezolvat': 2 };
+// ── HARTĂ ─────────────────────────────────────────────────
+const map = L.map('map-all', { center:[45.4353,28.0507], zoom:13, minZoom:11 });
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap', maxZoom:19,
+}).addTo(map);
+setTimeout(() => map.invalidateSize(), 200);
 
-    let activeFilter = 'toate';
-    let activeSort   = 'data-desc';
+function makeIcon(color) {
+    return L.divIcon({
+        className:'',
+        html:`<svg xmlns="http://www.w3.org/2000/svg" width="26" height="32" viewBox="0 0 32 40">
+            <path d="M16 0C7.16 0 0 7.16 0 16c0 10.76 14.24 23.28 15.25 24.19a1 1 0 0 0 1.5 0C17.76 39.28 32 26.76 32 16 32 7.16 24.84 0 16 0z" fill="${color}"/>
+            <circle cx="16" cy="16" r="6" fill="#fff"/>
+        </svg>`,
+        iconSize:[26,32], iconAnchor:[13,32], popupAnchor:[0,-34],
+    });
+}
+function renderMapMarkers(list) {
+    mapMarkers.forEach(m => map.removeLayer(m));
+    mapMarkers = [];
+    list.forEach(s => {
+        if (!s.lat || !s.lng) return;
+        const color = CAT_COLORS[s.categorie] || '#94a3b8';
+        const m = L.marker([s.lat, s.lng], { icon: makeIcon(color) })
+            .bindPopup(`<strong>${s.titlu}</strong><br>
+                <span style="font-size:.82em;color:#64748b">${s.categorie}</span>`)
+            .addTo(map);
+        mapMarkers.push(m);
+    });
+    if (mapMarkers.length > 0)
+        map.fitBounds(L.featureGroup(mapMarkers).getBounds().pad(0.15));
+}
 
-    function formatDate(iso) {
-        const d = new Date(iso);
-        return d.toLocaleDateString('ro-RO', { day: 'numeric', month: 'long', year: 'numeric' });
+// ── FETCH ─────────────────────────────────────────────────
+async function loadSesizari() {
+    try {
+        const res = await fetch('/api/reports');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        SESIZARI = (await res.json()).map(normalize);
+        renderFeed();
+        renderMapMarkers(SESIZARI);
+    } catch(err) {
+        document.getElementById('feed-count').textContent = '⚠ Eroare: ' + err.message;
     }
+}
 
-    function initials(name) {
-        return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
-    }
+// ── RENDER FEED ───────────────────────────────────────────
+function formatDate(iso) {
+    if (!iso) return '—';
+    try { return new Date(iso).toLocaleDateString('ro-RO',{day:'numeric',month:'long',year:'numeric'}); }
+    catch { return '—'; }
+}
+function initials(name) {
+    if (!name) return '?';
+    return name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+}
 
-    function renderFeed() {
-        let list = SESIZARI.filter(s => activeFilter === 'toate' || s.cat === activeFilter);
+function renderFeed() {
+    let list = SESIZARI.filter(s => activeFilter === 'toate' || s.categorie === activeFilter);
+    if (activeSort === 'data-desc')  list.sort((a,b)=>new Date(b.dataCreare||0)-new Date(a.dataCreare||0));
+    if (activeSort === 'data-asc')   list.sort((a,b)=>new Date(a.dataCreare||0)-new Date(b.dataCreare||0));
+    if (activeSort === 'prioritate') list.sort((a,b)=>(PRIO_ORDER[a.prioritate]||99)-(PRIO_ORDER[b.prioritate]||99));
+    if (activeSort === 'status')     list.sort((a,b)=>(STATUS_ORDER[a.status]||99)-(STATUS_ORDER[b.status]||99));
 
-        if (activeSort === 'data-desc')   list.sort((a, b) => b.data.localeCompare(a.data));
-        if (activeSort === 'data-asc')    list.sort((a, b) => a.data.localeCompare(b.data));
-        if (activeSort === 'prioritate')  list.sort((a, b) => PRIO_ORDER[a.prioritate] - PRIO_ORDER[b.prioritate]);
-        if (activeSort === 'status')      list.sort((a, b) => STATUS_ORDER[a.status] - STATUS_ORDER[b.status]);
+    const container = document.getElementById('feed-list');
+    const empty     = document.getElementById('feed-empty');
+    const countEl   = document.getElementById('feed-count');
+    countEl.textContent = `${list.length} sesizări`;
+    renderMapMarkers(list);
 
-        const container = document.getElementById('feed-list');
-        const empty     = document.getElementById('feed-empty');
-        const countEl   = document.getElementById('feed-count');
+    if (!list.length) { container.innerHTML=''; empty.hidden=false; lucide.createIcons(); return; }
+    empty.hidden = true;
 
-        countEl.textContent = `${list.length} sesizare${list.length !== 1 ? '' : 'a'}`;
+    container.innerHTML = list.map(s => {
+        const color    = CAT_COLORS[s.categorie] || '#94a3b8';
+        const rawSt    = (s.status||'').toLowerCase();
+        const statusCls= rawSt==='rezolvata' ? 'status-rezolvat' : rawSt==='in lucru' ? 'status-lucru' : 'status-nou';
+        const statusLbl= rawSt==='rezolvata' ? 'Rezolvat' : rawSt==='in lucru' ? 'În lucru' : rawSt==='respinsa' ? 'Respinsă' : 'Nou';
+        const prioCls  = s.prioritate==='Urgentă'?'prio-urgenta':s.prioritate==='Ridicată'?'prio-ridicata':s.prioritate==='Medie'?'prio-medie':'prio-scazuta';
+        const locLbl   = (s.lat&&s.lng) ? `${parseFloat(s.lat).toFixed(4)}, ${parseFloat(s.lng).toFixed(4)}` : 'Fără coordonate';
+        const id       = s._id;
 
-        if (list.length === 0) {
-            container.innerHTML = '';
-            empty.hidden = false;
-            lucide.createIcons();
-            return;
-        }
-        empty.hidden = true;
+        // Thread raspunsuri admin
+        const threadHTML = s.raspunsuri.length ? `
+        <div class="thread">
+            ${s.raspunsuri.map(r => `
+            <div class="thread-msg">
+                <div class="thread-msg-meta">
+                    <span>⚙️ ${r.autor || 'Admin'}</span>
+                    <span class="status-changed">→ ${r.statusNou || ''}</span>
+                    <span>${formatDate(r.data)}</span>
+                </div>
+                ${r.mesaj}
+            </div>`).join('')}
+        </div>` : '';
 
-        container.innerHTML = list.map(s => {
-            const color      = CAT_COLORS[s.cat] || '#94a3b8';
-            const statusCls  = s.status === 'Rezolvat' ? 'status-rezolvat' : s.status === 'In lucru' ? 'status-lucru' : 'status-nou';
-            const statusLbl  = s.status === 'In lucru' ? 'În lucru' : s.status;
-            const prioCls    = s.prioritate === 'Urgentă' ? 'prio-urgenta' : s.prioritate === 'Ridicată' ? 'prio-ridicata' : s.prioritate === 'Medie' ? 'prio-medie' : 'prio-scazuta';
+        // Panou admin
+        const adminHTML = isAdmin ? `
+        <div class="admin-panel">
+            <div class="admin-panel-title">⚙️ Panou Admin — schimbă status</div>
+            <textarea class="admin-textarea" id="msg-${id}"
+                placeholder="Scrie un mesaj de justificare (obligatoriu)..."></textarea>
+            <div class="admin-btns">
+                <button class="admin-btn btn-inlucru"
+                    onclick="schimbaStatus('${id}','in lucru',this)">🔧 În lucru</button>
+                <button class="admin-btn btn-rezolvat"
+                    onclick="schimbaStatus('${id}','rezolvata',this)">✅ Rezolvat</button>
+                <button class="admin-btn btn-respins"
+                    onclick="schimbaStatus('${id}','respinsa',this)">❌ Respinge</button>
+                <button class="admin-btn btn-asteptare"
+                    onclick="schimbaStatus('${id}','in asteptare',this)">⏳ Resetează</button>
+            </div>
+        </div>` : '';
 
-            return `
-        <article class="sez-card" style="border-left-color:${color}">
-            <div class="sez-card__avatar" style="background:${color}20; color:${color}">${initials(s.autor)}</div>
+        // Butoane flag (useri normali)
+        const alreadyFlaggedR = myFlags[id] === 'redundanta';
+        const alreadyFlaggedN = myFlags[id] === 'nepotrivita';
+        const flagHTML = !isAdmin ? `
+        <div class="flag-bar">
+            <span style="font-size:.7rem;color:#4b5a72">Raportează:</span>
+            <button class="flag-btn ${alreadyFlaggedR ? 'flagged' : ''}"
+                onclick="flagSesizare('${id}','redundanta',this)">
+                ♻️ Redundantă <span class="flag-count">${s.flags.redundanta||0}</span>
+            </button>
+            <button class="flag-btn ${alreadyFlaggedN ? 'flagged-nepotrivita' : ''}"
+                onclick="flagSesizare('${id}','nepotrivita',this)">
+                ⚠️ Nepotrivită <span class="flag-count">${s.flags.nepotrivita||0}</span>
+            </button>
+        </div>` : '';
+
+        return `
+        <article class="sez-card" style="border-left-color:${color}" id="card-${id}">
+            <div class="sez-card__avatar" style="background:${color}20;color:${color}">${initials(s.autor)}</div>
             <div class="sez-card__body">
                 <div class="sez-card__meta">
                     <span class="sez-card__cat" style="color:${color}">
-                        <span class="chip-dot" style="background:${color}"></span>${s.cat}
+                        <span class="chip-dot" style="background:${color}"></span>${s.categorie}
                     </span>
-                    <span class="sez-card__zona"><i data-lucide="map-pin" style="width:12px;height:12px;"></i> ${s.zona}</span>
-                    <span class="sez-card__date"><i data-lucide="calendar" style="width:12px;height:12px;"></i> ${formatDate(s.data)}</span>
+                    <span class="sez-card__zona">
+                        <i data-lucide="map-pin" style="width:12px;height:12px;"></i> ${locLbl}
+                    </span>
+                    <span class="sez-card__date">
+                        <i data-lucide="calendar" style="width:12px;height:12px;"></i> ${formatDate(s.dataCreare)}
+                    </span>
                 </div>
                 <h3 class="sez-card__titlu">${s.titlu}</h3>
-                <p class="sez-card__desc">${s.desc}</p>
+                <p class="sez-card__desc">${s.descriere}</p>
                 <div class="sez-card__footer">
                     <span class="status-pill ${statusCls}">${statusLbl}</span>
                     <span class="prio-badge ${prioCls}">${s.prioritate}</span>
-                    <span class="sez-card__autor"><i data-lucide="user" style="width:12px;height:12px;"></i> de ${s.autor}</span>
+                    <span class="sez-card__autor">
+                        <i data-lucide="user" style="width:12px;height:12px;"></i> de ${s.autor}
+                    </span>
                 </div>
+                ${threadHTML}
+                ${flagHTML}
+                ${adminHTML}
             </div>
         </article>`;
-        }).join('');
+    }).join('');
 
-        lucide.createIcons();
+    lucide.createIcons();
+}
+
+// ── ADMIN: SCHIMBĂ STATUS ─────────────────────────────────
+async function schimbaStatus(id, status, btn) {
+    const mesaj = document.getElementById('msg-' + id)?.value?.trim();
+    if (!mesaj) {
+        alert('⚠ Trebuie să scrii un mesaj de justificare înainte de a schimba statusul.');
+        document.getElementById('msg-' + id)?.focus();
+        return;
     }
+    btn.disabled = true;
+    btn.textContent = '...';
+    try {
+        const res  = await fetch(`/api/reports/${id}/status`, {
+            method:  'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({
+                status,
+                mesaj,
+                adminNume:  currentUser?.nume  || 'Admin',
+                adminEmail: currentUser?.email || '',
+            }),
+        });
+        const data = await res.json();
+        if (data.succes) {
+            await loadSesizari();
+        } else {
+            alert('Eroare: ' + (data.mesaj || 'Necunoscută'));
+            btn.disabled = false;
+            btn.textContent = status;
+        }
+    } catch(err) {
+        alert('Eroare de rețea: ' + err.message);
+        btn.disabled = false;
+    }
+}
 
-    document.getElementById('feed-filters').addEventListener('click', e => {
-        const chip = e.target.closest('.feed-chip');
-        if (!chip) return;
-        activeFilter = chip.dataset.filter;
-        document.querySelectorAll('.feed-chip').forEach(c => c.classList.toggle('active', c.dataset.filter === activeFilter));
-        renderFeed();
-    });
+// ── USER: FLAG ────────────────────────────────────────────
+async function flagSesizare(id, tip, btn) {
+    if (myFlags[id]) {
+        alert('Ai raportat deja această sesizare.');
+        return;
+    }
+    btn.disabled = true;
+    try {
+        const res  = await fetch(`/api/reports/${id}/flag`, {
+            method:  'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({ tip }),
+        });
+        const data = await res.json();
+        if (data.succes) {
+            myFlags[id] = tip;
+            localStorage.setItem('myFlags', JSON.stringify(myFlags));
+            await loadSesizari();
+        } else {
+            btn.disabled = false;
+        }
+    } catch(err) {
+        btn.disabled = false;
+    }
+}
 
-    document.getElementById('sort-select').addEventListener('change', e => {
-        activeSort = e.target.value;
-        renderFeed();
-    });
+// ── FILTRE / SORT ─────────────────────────────────────────
+document.getElementById('feed-filters').addEventListener('click', e => {
+    const chip = e.target.closest('.feed-chip');
+    if (!chip) return;
+    activeFilter = chip.dataset.filter;
+    document.querySelectorAll('.feed-chip').forEach(c =>
+        c.classList.toggle('active', c.dataset.filter === activeFilter));
+    renderFeed();
+});
+document.getElementById('sort-select').addEventListener('change', e => {
+    activeSort = e.target.value;
+    renderFeed();
+});
 
-    // Inițializare iconițe la prima încărcare
-    window.addEventListener('DOMContentLoaded', () => {
-        lucide.createIcons();
-        renderFeed();
-    });
+window.addEventListener('DOMContentLoaded', () => {
+    lucide.createIcons();
+    loadSesizari();
+});
 </script>
-
 </body>
 </html>

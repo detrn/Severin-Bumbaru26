@@ -101,12 +101,10 @@ const server = createServer(async (req, res) => {
         return;
       }
       res.setHeader("Content-Type", "application/json");
-      res.end(
-        JSON.stringify({
-          succes: true,
-          user: { email: user.email, nume: user.nume },
-        }),
-      );
+      res.end(JSON.stringify({
+        succes: true,
+        user: { email: user.email, nume: user.nume, rol: user.rol || 'user' }  // ← adăugat rol
+      }));
     });
     return;
   }
@@ -249,7 +247,72 @@ const server = createServer(async (req, res) => {
     res.end(JSON.stringify({ succes: true, mesaj: "Vot eliminat" }));
     return;
   }
+//
 
+  // ===== API/REPORTS STATUS (admin) =====
+  if (filePath.match(/^api\/reports\/[^/]+\/status$/) && req.method === 'PUT') {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', async () => {
+      try {
+        const id = filePath.split('/')[2];
+        const { status, mesaj, adminNume, adminEmail } = JSON.parse(body);
+
+        // Verificare admin server-side
+        const usersCol = getUsersCollection();
+        const adminUser = await usersCol.findOne({ email: adminEmail, rol: 'admin' });
+        if (!adminUser) {
+          res.statusCode = 403;
+          res.end(JSON.stringify({ succes: false, mesaj: 'Acces interzis' }));
+          return;
+        }
+
+        const raspuns = { mesaj, statusNou: status, autor: adminNume, data: new Date() };
+        const col = getReportsCollection();
+        await col.updateOne(
+            { _id: new ObjectId(id) },
+            {
+              $set:  { status, dataActualizare: new Date() },
+              $push: { raspunsuri: raspuns }
+            }
+        );
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({ succes: true }));
+      } catch(err) {
+        console.error('EROARE status:', err);
+        res.statusCode = 500;
+        res.end(JSON.stringify({ succes: false, mesaj: err.message }));
+      }
+    });
+    return;
+  }
+//
+
+  // ===== API/REPORTS FLAG (useri normali) =====
+  if (filePath.match(/^api\/reports\/[^/]+\/flag$/) && req.method === 'PUT') {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', async () => {
+      try {
+        const id  = filePath.split('/')[2];
+        const { tip } = JSON.parse(body);  // 'redundanta' sau 'nepotrivita'
+        const col = getReportsCollection();
+        await col.updateOne(
+            { _id: new ObjectId(id) },
+            { $inc: { [`flags.${tip}`]: 1 } }
+        );
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({ succes: true }));
+      } catch(err) {
+        res.statusCode = 500;
+        res.end(JSON.stringify({ succes: false, mesaj: err.message }));
+      }
+    });
+    return;
+  }
+
+
+  //
   // ===== SERVIRE FIȘIERE STATICE =====
   let fullPath;
   if (filePath === "") {
