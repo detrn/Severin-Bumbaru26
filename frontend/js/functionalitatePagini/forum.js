@@ -1,3 +1,4 @@
+let myVotes = JSON.parse(localStorage.getItem('myVotesPropuneri') || '{}');
 let allProposals = [];
 let currentFilter = "all";
 
@@ -28,8 +29,13 @@ async function loadProposals() {
         <i data-lucide="alert-triangle" style="width:48px; height:48px;"></i>
         <p>Eroare la încărcare. Verifică consola (F12) pentru detalii.</p>
       </div>`;
+    filtered.forEach(p => {
+      const id = String(p._id?.$oid || p._id);
+      actualizezaButoane(id, myVotes[id] || null);
+    });
     if (window.lucide) lucide.createIcons();
   }
+
 }
 
 function renderForum() {
@@ -73,30 +79,31 @@ function renderForum() {
         p.descriere || p.problema || p.sesizare || "Fără descriere";
 
       return `
-        <article class="pcard">
-          <div class="vstrip">
-            <button class="vbtn up" onclick="handleVote('${cleanId}', 'upvote')">
-                <i data-lucide="chevron-up"></i>
-            </button>
-            <span class="vnum">${p.numarVoturi || 0}</span>
-            <button class="vbtn down" onclick="handleVote('${cleanId}', 'downvote')">
-                <i data-lucide="chevron-down"></i>
-            </button>
-          </div>
-          <div class="pbody">
-            <div class="ptop">
-              <span class="ptag ${tipClass}"><i data-lucide="${icon}"></i> ${p.tip?.toUpperCase() || "ORAȘ"}</span>
-              <span class="status-pill status-lucru">${p.status || "în așteptare"}</span>
-              <span style="margin-left:auto; font-size:0.8rem; color:#94a3b8;"><i data-lucide="calendar" style="width:12px"></i> ${dateStr}</span>
-            </div>
-            <h3 class="ptitle">${p.titlu || "Fără titlu"}</h3>
-            <p style="color:var(--color-text-light); font-size:0.92rem; margin-bottom:15px;">${continutText}</p>
-            <div class="pauthor" style="display:flex; align-items:center; gap:8px;">
-               <div class="lb-avatar" style="width:24px; height:24px; font-size:0.7rem;">${(p.autor || p.nume || "A").charAt(0).toUpperCase()}</div>
-               <span style="font-size:0.85rem; font-weight:600;">${p.autor || p.nume || "Anonim"}</span>
-            </div>
-          </div>
-        </article>`;
+  <article class="pcard">
+    <div class="vstrip" data-vote-id="${cleanId}">
+      <button class="vbtn up" onclick="handleVote('${cleanId}', 'up')">
+          <i data-lucide="chevron-up"></i>
+      </button>
+      <span class="vnum">${p.numarVoturi || 0}</span>
+      <button class="vbtn down" onclick="handleVote('${cleanId}', 'down')">
+          <i data-lucide="chevron-down"></i>
+      </button>
+    </div>
+    <div class="pbody">
+      <div class="ptop">
+        <span class="ptag ${tipClass}"><i data-lucide="${icon}"></i> ${p.tip?.toUpperCase() || "ORAȘ"}</span>
+        <span class="status-pill status-lucru">${p.status || "în așteptare"}</span>
+        <span style="margin-left:auto; font-size:0.8rem; color:#94a3b8;"><i data-lucide="calendar" style="width:12px"></i> ${dateStr}</span>
+      </div>
+      <h3 class="ptitle">${p.titlu || "Fără titlu"}</h3>
+      <p style="color:var(--color-text-light); font-size:0.92rem; margin-bottom:15px;">${continutText}</p>
+      <div class="pauthor" style="display:flex; align-items:center; gap:8px;">
+         <div class="lb-avatar" style="width:24px; height:24px; font-size:0.7rem;">${(p.autor || p.nume || "A").charAt(0).toUpperCase()}</div>
+         <span style="font-size:0.85rem; font-weight:600;">${p.autor || p.nume || "Anonim"}</span>
+      </div>
+    </div>
+  </article>`;
+
     })
     .join("");
 
@@ -112,19 +119,52 @@ window.filterByType = function (type) {
   renderForum();
 };
 
-window.handleVote = async function (id, direction) {
-  console.log(`🗳️ Trimit vot: ${direction} pentru ${id}`);
+window.handleVote = async function (id, tip) {
+  const votCurent = myVotes[id];
+  let delta, votNou;
+
+  if (votCurent === tip) {
+    delta  = tip === 'up' ? -1 : +1;
+    votNou = null;
+  } else if (votCurent && votCurent !== tip) {
+    delta  = tip === 'up' ? +2 : -2;
+    votNou = tip;
+  } else {
+    delta  = tip === 'up' ? +1 : -1;
+    votNou = tip;
+  }
+
   try {
-    const res = await fetch(`/api/propuneri/${id}/${direction}`, {
-      method: "PUT",
+    const res = await fetch(`/api/propuneri/${id}/vote`, {
+      method:  'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ delta }),
     });
-    if (res.ok) {
-      await loadProposals(); // Reîncărcăm totul din DB
+    if (!(await res.json()).succes) return;
+
+    if (votNou) myVotes[id] = votNou;
+    else        delete myVotes[id];
+    localStorage.setItem('myVotesPropuneri', JSON.stringify(myVotes));
+
+    // Actualizează doar numărul și butoanele — fără reload complet
+    const propunere = allProposals.find(p => (p._id?.$oid || p._id) === id);
+    if (propunere) {
+      propunere.numarVoturi = (propunere.numarVoturi || 0) + delta;
+      document.querySelector(`[data-vote-id="${id}"] .vnum`).textContent = propunere.numarVoturi;
     }
-  } catch (err) {
-    console.error("Vot eșuat:", err);
+    actualizezaButoane(id, votNou);
+  } catch(err) {
+    console.error('Eroare vot:', err);
   }
 };
+
+function actualizezaButoane(id, votActiv) {
+  const btnUp   = document.querySelector(`[data-vote-id="${id}"] .vbtn.up`);
+  const btnDown = document.querySelector(`[data-vote-id="${id}"] .vbtn.down`);
+  if (btnUp)   btnUp.classList.toggle('lit-up', votActiv === 'up');
+  if (btnDown) btnDown.classList.toggle('lit-up', votActiv === 'down');
+}
+
 
 function updateStats() {
   const totalEl = document.getElementById("stat-total");
