@@ -443,27 +443,36 @@ form button:hover {
     height: 100%;
     object-fit: cover;
 }
-.signup-logo {
+.signup-logo, .login-logo {
     display: block;
     width: 200px;
     height: auto;
-    margin: 0 auto 20px;
+    margin: 40px auto 20px; /* Adăugăm spațiu sus ca să nu fie lipit de margine */
     object-fit: contain;
     filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+    position: relative;
+    z-index: 10; /* Ne asigurăm că logo-ul e deasupra */
 }
 
 .wrapper {
-    padding-top: 40px;
-}
-.login-logo {
-    display: block;
-    width: 200px;
-    height: auto;
-    margin: 0 auto 20px;
-    object-fit: contain;
-    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+    background-color: var(--base-color);
+    min-height: 100vh; /* Schimbăm din height în min-height */
+    width: max(20%, 400px);
+    padding: 20px;
+    border-radius: 0 20px 20px 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start; /* Schimbăm din center în flex-start */
+    position: relative;
+    z-index: 5;
+    overflow-y: auto; /* Permite scroll dacă conținutul e prea lung */
 }
 
-.wrapper {
-    padding-top: 40px;
+/* Fix pentru butoane să fie mereu deasupra fundalului */
+form button, .hero__actions button {
+    position: relative;
+    z-index: 20;
+    cursor: pointer !important; /* Forțăm cursorul de mână */
+    pointer-events: auto !important; /* Ne asigurăm că primesc click-uri */
 }
