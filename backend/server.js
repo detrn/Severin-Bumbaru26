@@ -19,6 +19,8 @@ const server = createServer(async (req, res) => {
       try {
         const date = JSON.parse(body);
         const propunere = {
+          autor : date.autor || 'Anonim',
+          numarVoturi: 0,
           tip:           date.tip,
           titlu:         date.titlu,
           problema:      date.problema,
@@ -112,6 +114,60 @@ const server = createServer(async (req, res) => {
     });
     return;
   }
+  ///
+  // ===== API/PROPUNERI GET =====
+  if (filePath === 'api/propuneri' && req.method === 'GET') {
+    try {
+      const col  = getPropuneriCollection();
+      const docs = await col.find({}).toArray();
+      console.log(`[propuneri GET] ${docs.length} documente găsite`); // debug
+      res.setHeader('Content-Type', 'application/json');
+      res.end(JSON.stringify(docs));
+    } catch (err) {
+      console.error('[propuneri GET] EROARE:', err.message);
+      res.statusCode = 500;
+      res.setHeader('Content-Type', 'application/json');
+      res.end(JSON.stringify({ succes: false, mesaj: err.message }));
+    }
+    return;
+  }
+
+// ===== API/PROPUNERI UPVOTE =====
+  if (filePath.startsWith('api/propuneri/') && filePath.endsWith('/upvote') && req.method === 'PUT') {
+    try {
+      const id  = filePath.split('/')[2];
+      const col = getPropuneriCollection();
+      await col.updateOne({ _id: new ObjectId(id) }, { $inc: { numarVoturi: 1 } });
+      res.setHeader('Content-Type', 'application/json');
+      res.end(JSON.stringify({ succes: true }));
+    } catch (err) {
+      res.statusCode = 500;
+      res.end(JSON.stringify({ succes: false, mesaj: err.message }));
+    }
+    return;
+  }
+
+// ===== API/PROPUNERI DOWNVOTE =====
+  if (filePath.startsWith('api/propuneri/') && filePath.endsWith('/downvote') && req.method === 'PUT') {
+    try {
+      const id  = filePath.split('/')[2];
+      const col = getPropuneriCollection();
+      await col.updateOne({ _id: new ObjectId(id) }, { $inc: { numarVoturi: -1 } });
+      res.setHeader('Content-Type', 'application/json');
+      res.end(JSON.stringify({ succes: true }));
+    } catch (err) {
+      res.statusCode = 500;
+      res.end(JSON.stringify({ succes: false, mesaj: err.message }));
+    }
+    return;
+  }
+
+
+
+
+
+
+  ///
 
   // ===== API/REPORTS GET =====
   if (filePath === 'api/reports' && req.method === 'GET') {
