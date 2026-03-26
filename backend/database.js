@@ -24,6 +24,10 @@ function getReportsCollection() {
 }
 let propuneriCollection;
 
+function getUsersCollection() {
+  return db.collection("users");
+}
+
 function getPropuneriCollection() {
   if (!propuneriCollection) {
     propuneriCollection = db.collection("propuneri");
@@ -31,5 +35,4 @@ function getPropuneriCollection() {
   return propuneriCollection;
 }
 
-module.exports = { connectDB, getReportsCollection };
 module.exports = { connectDB, getPropuneriCollection, getReportsCollection, getUsersCollection, };
