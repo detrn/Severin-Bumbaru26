@@ -104,3 +104,31 @@ form.addEventListener("submit", async (event) => {
     alert(`Eroare la trimitere: ${error.message}`);
   }
 });
+// ── CONFIGURARE HARTĂ CU BOUNDS ȘI ANIMAȚIE ──
+// Definim limitele geografice pentru Galați (Sud-Vest și Nord-Est)
+const galatiBounds = L.latLngBounds(
+  L.latLng(45.3500, 27.9500), // Sud-Vest
+  L.latLng(45.5000, 28.1500)  // Nord-Est
+);
+
+const map = L.map('map-all', {
+  center: [45.4353, 28.0507],
+  zoom: 12,
+  minZoom: 11,
+  maxBounds: galatiBounds, // Restricționăm mișcarea hărții
+  maxBoundsViscosity: 1.0  // Împiedică utilizatorul să tragă harta în afara limitelor
+});
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© OpenStreetMap'
+}).addTo(map);
+
+// Animația de intrare (Harta vine de la un zoom mai mare)
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    map.flyTo([45.4353, 28.0507], 13, {
+      animate: true,
+      duration: 1.5 // secundele animației
+    });
+  }, 500);
+});

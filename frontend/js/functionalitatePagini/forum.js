@@ -99,8 +99,6 @@ function renderForum() {
          <span style="font-size:0.85rem; font-weight:600;">${p.autor || p.nume || "Anonim"}</span>
       </div>
       
-   
-     // În renderForum(), în template-ul fiecărei propuneri, secțiunea comentarii devine:
 
 <div class="comments-section">
   <h4>Comentarii</h4>

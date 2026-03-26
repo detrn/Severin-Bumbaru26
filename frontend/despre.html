@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Despre | Sesizari Galati</title>
+    <title>Despre | Sesizări Galați</title>
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/pages/about.css">
     <link rel="stylesheet" href="css/componente/navbar.css">
-    <link rel="stylesheet" href="css/index-typography.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 <nav class="navbar">
@@ -20,10 +20,12 @@
         <ul class="navbar__links">
             <li><a href="index.html"><i data-lucide="home"></i> Acasă</a></li>
             <li><a href="despre.html"><i data-lucide="info"></i> Despre</a></li>
+            <li><a href="DezvoltareUrbana.html"><i data-lucide="building-2"></i> Dezvoltare Urbană</a></li>
             <li><a href="propuneri.html"><i data-lucide="messages-square"></i> Propuneri</a></li>
             <li class="dropdown">
                 <a href="#" id="sesizari-toggle">
-                    <i data-lucide="alert-circle"></i> Sesizări <i data-lucide="chevron-down" class="chevron-down" style="width:14px; transition: transform 0.3s;"></i>
+                    <i data-lucide="alert-circle"></i> Sesizări
+                    <i data-lucide="chevron-down" class="chevron-down" style="width:14px; transition: transform 0.3s;"></i>
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="sesizari.html"><i data-lucide="edit-3"></i> Depune sesizare</a></li>
@@ -36,49 +38,49 @@
 <section class="despre-aplicatie">
     <div class="container container-despre">
         <div class="despre-content">
-            <span class="despre-badge">Despre aplicatie</span>
-            <h1>Sesizari Galati</h1>
+            <span class="despre-badge">Despre aplicație</span>
+            <h1>Sesizări Galați</h1>
             <p class="despre-lead">
-                Platforma care transforma problemele din oras in sesizari clare, urmaribile si mai
-                usor de rezolvat.
+                Platforma care transformă problemele din oraș în sesizări clare, urmăribile și mai
+                ușor de rezolvat.
             </p>
 
             <p>
-                "Sesizari Galati" este o aplicatie web destinata cetatenilor si autoritatilor
-                locale, creata pentru raportarea rapida a problemelor din oras. Utilizatorii pot
-                trimite sesizari, selecta locatia pe harta, urmari statusul cererilor si primi
-                notificari privind actualizarile acestora.
+                "Sesizări Galați" este o aplicație web destinată cetățenilor și autorităților
+                locale, creată pentru raportarea rapidă a problemelor din oraș. Utilizatorii pot
+                trimite sesizări, selecta locația pe hartă, urmări statusul cererilor și primi
+                notificări privind actualizările acestora.
             </p>
 
             <p>
-                Aplicatia include functionalitati precum identificarea tipurilor de utilizatori,
-                filtrarea sesizarilor, prioritizarea acestora, raspunsuri din partea autoritatilor
-                si, optional, votarea sau urmarirea altor sesizari. Scopul principal este
-                imbunatatirea comunicarii dintre comunitate si administratia locala din Galati.
+                Aplicația include funcționalități precum identificarea tipurilor de utilizatori,
+                filtrarea sesizărilor, prioritizarea acestora, răspunsuri din partea autorităților
+                și, opțional, votarea sau urmărirea altor sesizări. Scopul principal este
+                îmbunătățirea comunicării dintre comunitate și administrația locală din Galați.
             </p>
 
             <div class="despre-actions">
                 <a class="btn btn-primary" href="sesizari.html">Trimite sesizare</a>
-                <a class="btn despre-btn-secondary" href="index.html">Inapoi acasa</a>
+                <a class="btn despre-btn-secondary" href="index.html">Înapoi acasă</a>
             </div>
         </div>
 
-        <aside class="despre-panel" aria-label="Avantaje aplicatie">
+        <aside class="despre-panel" aria-label="Avantaje aplicație">
             <div class="despre-panel__card">
-                <span class="despre-panel__eyebrow">De ce conteaza</span>
-                <h2>Mai putin haos, mai multa vizibilitate</h2>
+                <span class="despre-panel__eyebrow">De ce contează</span>
+                <h2>Mai puțin haos, mai multă vizibilitate</h2>
                 <ul class="despre-highlights">
                     <li>
-                        <strong>Raportare rapida</strong>
-                        <span>Trimiterea unei sesizari in cateva minute, fara drumuri inutile.</span>
+                        <strong>Raportare rapidă</strong>
+                        <span>Trimiterea unei sesizări în câteva minute, fără drumuri inutile.</span>
                     </li>
                     <li>
-                        <strong>Urmarire transparenta</strong>
-                        <span>Status clar pentru fiecare solicitare depusa.</span>
+                        <strong>Urmărire transparentă</strong>
+                        <span>Status clar pentru fiecare solicitare depusă.</span>
                     </li>
                     <li>
-                        <strong>Colaborare locala</strong>
-                        <span>Cetateni si autoritati in acelasi flux de comunicare.</span>
+                        <strong>Colaborare locală</strong>
+                        <span>Cetățeni și autorități în același flux de comunicare.</span>
                     </li>
                 </ul>
             </div>
@@ -90,14 +92,23 @@
                 </div>
                 <div class="despre-stat">
                     <span class="despre-stat__value">1 loc</span>
-                    <span class="despre-stat__label">pentru toate sesizarile</span>
+                    <span class="despre-stat__label">pentru toate sesizările</span>
                 </div>
             </div>
         </aside>
     </div>
 </section>
 
-<script src="js/accessibility.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        } else {
+            console.error("Librăria Lucide nu a putut fi încărcată. Verifică conexiunea la internet sau link-ul din head.");
+        }
+    });
+</script>
+
 
 </body>
 </html>
