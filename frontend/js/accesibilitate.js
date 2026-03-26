@@ -1,16 +1,20 @@
 window.togglePanel = function () {
   const panel = document.getElementById("a11y-panel");
-  if (panel) {
-    const isVisible = panel.classList.contains("show");
-    if (isVisible) {
-      panel.style.display = "none !important";
+  if (!panel) return;
+  panel.classList.toggle("show");
+  console.log("Panou deschis:", panel.classList.contains("show"));
+};
+document.addEventListener("click", function (event) {
+  const panel = document.getElementById("a11y-panel");
+  const toggleBtn = document.getElementById("a11y-toggle");
+  const widget = document.getElementById("a11y-widget");
+  if (panel && panel.classList.contains("show")) {
+    // Dacă click-ul NU este pe widget (buton sau panou), închidem
+    if (!widget.contains(event.target)) {
       panel.classList.remove("show");
-    } else {
-      panel.style.setProperty("display", "flex", "important");
-      panel.classList.add("show");
     }
   }
-};
+});
 
 function loadAccessibilityWidget() {
   const widgetHTML = `
