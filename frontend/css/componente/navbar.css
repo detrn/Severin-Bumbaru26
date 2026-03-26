@@ -177,3 +177,33 @@
     display: none !important;
     content: none !important;
 }
+.navbar__links a {
+    text-decoration: none !important;
+    color: #475569 !important;
+    font-weight: 700;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px;
+    font-family: 'Montserrat', sans-serif;
+    padding: 10px 0;
+    white-space: nowrap;
+}
+
+.navbar__links i,
+.navbar__links [data-lucide] {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2.5;
+    flex-shrink: 0;
+}
+
+@media (max-width: 1100px) {
+    .navbar__links {
+        gap: 15px !important;
+    }
+    .navbar__links a {
+        font-size: 13px;
+    }
+}
