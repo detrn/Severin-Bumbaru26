@@ -1,9 +1,14 @@
 window.togglePanel = function () {
   const panel = document.getElementById("a11y-panel");
   if (panel) {
-    const isVisible = panel.style.display === "flex";
-    panel.style.display = isVisible ? "none" : "flex";
-    panel.classList.toggle("show");
+    const isVisible = panel.classList.contains("show");
+    if (isVisible) {
+      panel.style.display = "none !important";
+      panel.classList.remove("show");
+    } else {
+      panel.style.setProperty("display", "flex", "important");
+      panel.classList.add("show");
+    }
   }
 };
 
@@ -13,69 +18,56 @@ function loadAccessibilityWidget() {
         <div id="a11y-panel">
             <div class="a11y-heading">Accesibilitate</div>
             
-            <div class="a11y-option" id="opt-fontsize">
-                <div class="a11y-option__left">
-                    <div class="a11y-option__icon"><i data-lucide="type"></i></div>
-                    <div>
+            <div style="padding: 5px;">
+                <div class="a11y-option" id="opt-fontsize">
+                    <div class="a11y-option__left">
+                        <div class="a11y-option__icon"><i data-lucide="type"></i></div>
                         <div class="a11y-option__label">Mărime text</div>
-                        <div class="a11y-option__sublabel">Ajustează dimensiunea</div>
+                    </div>
+                    <div class="a11y-size-ctrl">
+                        <button type="button" onclick="changeFont(-1)">−</button>
+                        <span class="a11y-size-val" id="font-val">100%</span>
+                        <button type="button" onclick="changeFont(1)">+</button>
                     </div>
                 </div>
-                <div class="a11y-size-ctrl">
-                    <button type="button" onclick="changeFont(-1)">−</button>
-                    <span class="a11y-size-val" id="font-val">100%</span>
-                    <button type="button" onclick="changeFont(1)">+</button>
-                </div>
-            </div>
 
-            <div class="a11y-divider"></div>
+                <div class="a11y-divider"></div>
 
-            <button class="a11y-option" onclick="toggleA11y('contrast', this)">
-                <div class="a11y-option__left">
-                    <div class="a11y-option__icon"><i data-lucide="moon"></i></div>
-                    <div>
+                <button class="a11y-option" onclick="toggleA11y('contrast', this)">
+                    <div class="a11y-option__left">
+                        <div class="a11y-option__icon"><i data-lucide="moon"></i></div>
                         <div class="a11y-option__label">Contrast ridicat</div>
-                        <div class="a11y-option__sublabel">Vizibilitate sporită</div>
                     </div>
-                </div>
-                <div class="a11y-switch"></div>
-            </button>
+                    <div class="a11y-switch"></div>
+                </button>
 
-            <button class="a11y-option" onclick="toggleA11y('underline', this)">
-                <div class="a11y-option__left">
-                    <div class="a11y-option__icon"><i data-lucide="link"></i></div>
-                    <div>
+                <button class="a11y-option" onclick="toggleA11y('underline', this)">
+                    <div class="a11y-option__left">
+                        <div class="a11y-option__icon"><i data-lucide="link"></i></div>
                         <div class="a11y-option__label">Subliniere linkuri</div>
-                        <div class="a11y-option__sublabel">Mai ușor de identificat</div>
                     </div>
-                </div>
-                <div class="a11y-switch"></div>
-            </button>
+                    <div class="a11y-switch"></div>
+                </button>
 
-            <button class="a11y-option" onclick="toggleA11y('dyslexia', this)">
-                <div class="a11y-option__left">
-                    <div class="a11y-option__icon"><i data-lucide="book-open"></i></div>
-                    <div>
+                <button class="a11y-option" onclick="toggleA11y('dyslexia', this)">
+                    <div class="a11y-option__left">
+                        <div class="a11y-option__icon"><i data-lucide="book-open"></i></div>
                         <div class="a11y-option__label">Font dislexie</div>
-                        <div class="a11y-option__sublabel">Lectură facilitată</div>
                     </div>
-                </div>
-                <div class="a11y-switch"></div>
-            </button>
+                    <div class="a11y-switch"></div>
+                </button>
 
-            <button class="a11y-option" onclick="toggleA11y('cursor', this)">
-                <div class="a11y-option__left">
-                    <div class="a11y-option__icon"><i data-lucide="mouse-pointer-2"></i></div>
-                    <div>
+                <button class="a11y-option" onclick="toggleA11y('cursor', this)">
+                    <div class="a11y-option__left">
+                        <div class="a11y-option__icon"><i data-lucide="mouse-pointer-2"></i></div>
                         <div class="a11y-option__label">Cursor mare</div>
-                        <div class="a11y-option__sublabel">Vizibilitate cursor</div>
                     </div>
-                </div>
-                <div class="a11y-switch"></div>
-            </button>
+                    <div class="a11y-switch"></div>
+                </button>
 
-            <div class="a11y-divider"></div>
-            <button id="a11y-reset" type="button" onclick="resetA11y()">Resetează setările</button>
+                <div class="a11y-divider"></div>
+                <button id="a11y-reset" type="button" onclick="resetA11y()">RESETEAZĂ SETĂRILE</button>
+            </div>
         </div>
 
         <button id="a11y-toggle" type="button" onclick="window.togglePanel()">
